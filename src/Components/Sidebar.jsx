@@ -7,26 +7,17 @@ const Sidebar = ({ toggleLogin }) => {
       >
         <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
           <span className="fs-4" id="sidebarTitle" style={{fontFamily:"'Montserrat', sans-serif"}}>Plug Talk</span>
-          <span className="px-4 d-inline-block align-bottom">v 1.0.0</span>
+          <span className="px-4 d-inline-block">v 1.0.0</span>
         </span>
         <hr />
         <ul className="nav nav-pills flex-column mb-auto">
           <li className="nav-item">
             <span className="nav-link bg-warning text-dark" aria-current="page">
-              Home
+              Messages
             </span>
           </li>
           <li>
-            <span className="nav-link text-white">Dashboard</span>
-          </li>
-          <li>
-            <span className="nav-link text-white">Orders</span>
-          </li>
-          <li>
-            <span className="nav-link text-white">Products</span>
-          </li>
-          <li>
-            <span className="nav-link text-white">Customers</span>
+            <span className="nav-link text-white">Settings</span>
           </li>
         </ul>
         <hr />

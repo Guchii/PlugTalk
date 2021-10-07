@@ -5,3 +5,10 @@
     margin: 0;
     padding: 0;
 }
+
+.messageInstance {
+    width: calc(100vw - 360px);
+    background-color: blanchedalmond;
+    margin-top: 20px;
+    padding: 10px;
+}
