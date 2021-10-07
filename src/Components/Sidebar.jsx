@@ -1,12 +1,9 @@
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-
-const Sidebar = () => {
+const Sidebar = ({toggleLogin}) => {
     return(
         <div className="sidebar">
-            <h2>Plug Talk Sidebar</h2>
             <div className="sidebar__top">
-                <h3>Plug Talk</h3>
-                <ExpandMoreIcon/>
+                <h2>Plug Talk</h2>
+                <button onClick={toggleLogin}>Logout</button>
             </div>
         </div>
     )
