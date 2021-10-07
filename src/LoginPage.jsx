@@ -7,7 +7,7 @@ const LoginPage = ({ toggleLogin }) => {
         style={{ backgroundColor: "#4CAB78" }}
       >
         <div className="container-fluid d-flex justify-content-center text-light">
-          <span className="navbar-brand mb-0 h1 fs-1 text-white">
+          <span className="navbar-brand mb-0 h1 fs-2 text-white">
             Plug Talk
           </span>
         </div>
@@ -25,19 +25,19 @@ const LoginPage = ({ toggleLogin }) => {
             <form action="" className="">
               <div className="mb-3">
                 <input
-                  className="form-control"
+                  className="form-control bg-dark text-light"
                   type="text"
                   placeholder="UserName#id"
                 />
               </div>
               <div className="mb-3">
                 <input
-                  className="form-control"
+                  className="form-control bg-dark text-light"
                   type="text"
                   placeholder="Password"
                 />
               </div>
-              <div className="btn-group">
+              <div className="btn-group mt-2">
                 <button onClick={toggleLogin} className="btn btn-dark">
                   Login
                 </button>
