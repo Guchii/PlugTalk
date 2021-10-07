@@ -13,29 +13,28 @@ const LoginPage = ({ toggleLogin }) => {
         </div>
       </nav>
       <div
-        className="container-fluid d-flex align-middle justify-content-center"
+        className="d-flex align-items-center justify-content-center"
         style={{
           backgroundColor: " #04000A",
-          height: "calc(100vh - 80px)",
+          height: "calc(100vh - 80px - 56px)",
           margin: 0,
           padding: 0,
         }}
       >
-        <div className="row">
           <div className="text-center">
-            <form action="" className="col-12 p-5">
+            <form action="" className="">
               <div className="mb-3">
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="UserName#1231"
+                  placeholder="UserName#id"
                 />
               </div>
               <div className="mb-3">
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="Enter your password"
+                  placeholder="Password"
                 />
               </div>
               <div className="btn-group">
@@ -48,11 +47,12 @@ const LoginPage = ({ toggleLogin }) => {
               </div>
             </form>
           </div>
-          <div className="text-center">
-            <p className="col-12 text-light fs-6">v 1.0.0</p>
-          </div>
         </div>
-      </div>
+      <footer class="footer mt-auto py-3 bg-dark">
+        <div class="container d-flex justify-content-end">
+          <span class="text-muted">v 1.0.0</span>
+        </div>
+      </footer>
     </div>
   );
 };
