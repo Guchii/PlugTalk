@@ -2,6 +2,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 
 const sampleServer = {
     name: "Sample Server",
+    uniqueID: "12345",
     members: null,
     owner: null,
     channels: [
@@ -28,14 +29,25 @@ const sampleServer = {
 
 const appInitialState = {
     servers: [sampleServer],
-    registeredUsers: null,
+    registeredUsers: 0,
     version: "1.0.0",
-    active: {
-        server: null,
-    },
 };
 
+const userInitialData = {
+    user: null,
+    lastActive: {
+        server: {
+            name: "12345",
+            channel: 2,
+        },
+        time: null,
+    },
+}
+
 const rootReducer = combineReducers({
+    userData: (state = userInitialData, action) => {
+        return state
+    },
     user: (state = null, action) => {
         switch (action.type) {
             case "LOGIN":
@@ -52,6 +64,8 @@ const rootReducer = combineReducers({
                 return state;
             case "DELETESERVER":
                 return state;
+            case "SETCHANNELID":
+                return action.payload;
             default:
                 return state;
         }

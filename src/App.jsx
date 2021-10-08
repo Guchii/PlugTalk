@@ -1,17 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Components/Sidebar";
 import Main from "./Components/Main";
 import LoginPage from "./LoginPage";
+import { auth } from "./firebase";
 import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
     const [login, setLogin] = useState(true);
     const toggleLogin = () => {
         setLogin(!login);
     };
+    const dispatch = useDispatch();
+
+    const user = useSelector((state) => state.user);
+
+    useEffect(() => {
+        auth.onAuthStateChanged((authUser) => {
+            console.log("user is", authUser);
+            if (authUser) {
+                dispatch({
+                    type: "LOGIN",
+                    payload: {},
+                });
+            } else {
+                dispatch({
+                    type: "LOGOUT",
+                });
+            }
+        });
+    }, [dispatch]);
+
     return (
         <div className="app">
-            {!login ? (
+            {!user ? (
                 <LoginPage toggleLogin={toggleLogin} />
             ) : (
                 <>
