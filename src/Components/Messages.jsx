@@ -1,26 +1,25 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Messages = () => {
-  const arrayOfMessages = [
-    "I'm the oldest message from someone",
-    "I'm an older message from someone",
-    "This is my message",
-    "This is my new message",
-    "This is my newest message",
-    "OP Bhai OP"
-  ];
-  return (
-    <div>
-      <span className="fs-3">I am the messages component</span>
-      {arrayOfMessages.map((message)=><Message value={message}/>)}
-    </div>
-  );
+    const appData = useSelector((state) => state.app);
+    const arrayOfMessages = appData.servers[0].channels[0].messages;
+    return (
+        <div>
+            {arrayOfMessages.length === 0 && (
+                <span className="fs-3">
+                    I am the messages component & I am currently empty rn
+                </span>
+            )}
+            {arrayOfMessages.map((message) => (
+                <Message value={message} />
+            ))}
+        </div>
+    );
 };
 
-const Message = ({value}) => (
-  <div className="messageInstance fs-5">
-  {value}
-  </div>
+const Message = ({ value }) => (
+    <div className="messageInstance fs-5">{value}</div>
 );
 
 export default Messages;
