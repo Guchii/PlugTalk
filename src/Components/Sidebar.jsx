@@ -1,4 +1,43 @@
-const Sidebar = ({ toggleLogin }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+
+const Sidebar = () => {
+    const addServer = () => {
+        const name = prompt("Enter a valid name for your new server");
+        if (name) {
+            dispatch({
+                type: "CREATESERVER",
+                payload: {
+                    name,
+                    uniqueID: uuidv4(),
+                    members: [user],
+                    owner: user,
+                    channels: [
+                        {
+                            name: "channel 1",
+                            messages: [],
+                        },
+                    ],
+                },
+            });
+        }
+    };
+    const addChannel = () => {
+        const name = prompt("Enter a valid name for your new channel");
+        if (name) {
+            dispatch({
+                type: "CREATECHANNEL",
+                payload: {
+                    name,
+                    messages: [
+                        "Test Message 1",
+                    ],
+                },
+            });
+        }
+    };
+    const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     return (
         <>
             <div
@@ -13,7 +52,7 @@ const Sidebar = ({ toggleLogin }) => {
                     >
                         Plug Talk
                     </span>
-                    <span className="px-4 d-inline-block">v 1.0.0</span>
+                    <span className="px-4 d-inline-block text-wrap">dev build</span>
                 </span>
                 <hr />
                 <ul className="nav nav-pills flex-column mb-auto">
@@ -22,7 +61,7 @@ const Sidebar = ({ toggleLogin }) => {
                             className="nav-link bg-warning text-dark"
                             aria-current="page"
                         >
-                            Switch Server
+                            Your Servers
                         </span>
                     </li>
                     <li>
@@ -40,23 +79,25 @@ const Sidebar = ({ toggleLogin }) => {
                         aria-expanded="false"
                     >
                         <img
-                            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/05/051b51bf5c9c83e8bdc1071b49f8289072abcc5c_full.jpg"
+                            src={user.image}
                             alt=""
                             width="32"
                             height="32"
                             className="rounded-circle me-2"
                         />
-                        <strong>YourUserName</strong>
+                        <strong>{user.displayName}</strong>
                     </span>
                     <ul
                         className="dropdown-menu dropdown-menu-dark text-small shadow"
                         aria-labelledby="dropdownUser1"
                     >
                         <li>
-                            <span className="dropdown-item">New channel</span>
+                            <span className="dropdown-item" onClick={addChannel}>New channel</span>
                         </li>
                         <li>
-                            <span className="dropdown-item">New server</span>
+                            <span className="dropdown-item" onClick={addServer}>
+                                New server
+                            </span>
                         </li>
                         <li>
                             <span className="dropdown-item">Settings</span>
@@ -70,7 +111,11 @@ const Sidebar = ({ toggleLogin }) => {
                         <li>
                             <span
                                 className="dropdown-item"
-                                onClick={toggleLogin}
+                                onClick={() => {
+                                    dispatch({
+                                        type: "LOGOUT",
+                                    });
+                                }}
                             >
                                 Sign out
                             </span>

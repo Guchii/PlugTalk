@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { auth, provider } from "./firebase";
 import "./login.css";
-const LoginPage = ({ toggleLogin }) => {
+const LoginPage = () => {
     const [name, setName] = useState("");
-    const signIn = (e) =>{
-        auth.signInWithPopup(provider)
-    }
+    const signIn = (e) => {
+        auth.signInWithPopup(provider);
+    };
     return (
         <div className="login-container">
             <nav
@@ -45,20 +45,22 @@ const LoginPage = ({ toggleLogin }) => {
                         <div className="mb-3">
                             <input
                                 className="form-control bg-dark text-light"
-                                type="text"
+                                type="password"
                                 placeholder="Password"
                             />
                         </div>
                         <div className="btn-group mt-2">
                             <button
-                                onClick={toggleLogin}
+                                onClick=""
                                 className="btn btn-dark"
+                                disabled
                             >
                                 Login
                             </button>
                             <button
-                                onClick={toggleLogin}
+                                onClick=""
                                 className="btn btn-dark"
+                                disabled
                             >
                                 Signup
                             </button>

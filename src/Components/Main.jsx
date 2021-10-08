@@ -1,4 +1,5 @@
 import Messages from "./Messages";
+import Servers from "./Servers"
 
 const Main = () => {
   return (
@@ -7,21 +8,12 @@ const Main = () => {
         Hello this is main component
       </h1>
       <div
-        className="d-flex justify-content-center align-items-end"
+        className="d-flex justify-content-center align-items-center"
         style={{
-          height: "85vh",
+          height: "100vh",
         }}
       >
-        <Messages />
-        <input
-          type="text"
-          className="form-control bg-dark text-light position-absolute bottom-0 mb-3 fs-5"
-          style={{
-            width: "calc(100vw - 360px)",
-            padding: "10px",
-          }}
-          placeholder="Enter your message ..."
-        />
+            <Servers/>
       </div>
     </>
   );

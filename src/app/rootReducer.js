@@ -33,20 +33,19 @@ const appInitialState = {
     version: "1.0.0",
 };
 
-const userInitialData = {
-    user: null,
-    lastActive: {
-        server: {
-            name: "12345",
+const userPreferences = {
+    servers: [
+        {
+            uniqueID: "12345",
             channel: 2,
+            time: null,
         },
-        time: null,
-    },
-}
+    ],
+};
 
 const rootReducer = combineReducers({
-    userData: (state = userInitialData, action) => {
-        return state
+    userData: (state = null, action) => {
+        return state;
     },
     user: (state = null, action) => {
         switch (action.type) {
@@ -61,11 +60,11 @@ const rootReducer = combineReducers({
     app: (state = appInitialState, action) => {
         switch (action.type) {
             case "CREATESERVER":
-                return state;
+                const Servers = state.servers;
+                Servers.push(action.payload);
+                return { ...state, servers: Servers };
             case "DELETESERVER":
                 return state;
-            case "SETCHANNELID":
-                return action.payload;
             default:
                 return state;
         }

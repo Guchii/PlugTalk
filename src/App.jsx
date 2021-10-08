@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import Sidebar from "./Components/Sidebar";
 import Main from "./Components/Main";
 import LoginPage from "./LoginPage";
@@ -7,21 +7,20 @@ import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-    const [login, setLogin] = useState(true);
-    const toggleLogin = () => {
-        setLogin(!login);
-    };
     const dispatch = useDispatch();
-
     const user = useSelector((state) => state.user);
-
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
             console.log("user is", authUser);
             if (authUser) {
                 dispatch({
                     type: "LOGIN",
-                    payload: {},
+                    payload: {
+                        uid: authUser.uid,
+                        email: authUser.email,
+                        displayName: authUser.displayName,
+                        image: authUser.photoURL,
+                    },
                 });
             } else {
                 dispatch({
@@ -34,7 +33,7 @@ function App() {
     return (
         <div className="app">
             {!user ? (
-                <LoginPage toggleLogin={toggleLogin} />
+                <LoginPage />
             ) : (
                 <>
                     <div className="container-fluid">
@@ -49,10 +48,7 @@ function App() {
                                 className="col-auto d-flex justify-content-end p-0"
                                 style={{ backgroundColor: "#4CAB78" }}
                             >
-                                <Sidebar
-                                    toggleLogin={toggleLogin}
-                                    style={{ width: "280px" }}
-                                />
+                                <Sidebar style={{ width: "280px" }} />
                             </div>
                         </div>
                     </div>
