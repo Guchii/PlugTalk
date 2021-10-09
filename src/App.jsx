@@ -22,6 +22,7 @@ function App() {
                         image: authUser.photoURL,
                         server: 0,
                         channel: 0,
+                        changingServers: true,
                     },
                 });
             } else {

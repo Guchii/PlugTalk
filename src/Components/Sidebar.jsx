@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 const Sidebar = () => {
     const addServer = () => {
         const name = prompt("Enter a valid name for your new server");
+        let channelName = prompt("Enter name for the first channel");
+        if (!channelName) channelName = "channel 1";
         if (name) {
             dispatch({
                 type: "CREATESERVER",
@@ -14,7 +16,7 @@ const Sidebar = () => {
                     owner: user,
                     channels: [
                         {
-                            name: "channel 1",
+                            name: channelName,
                             messages: [],
                         },
                     ],
@@ -54,7 +56,7 @@ const Sidebar = () => {
                         Plug Talk
                     </span>
                     <span className="px-4 d-inline-block text-wrap versionText">
-                      dev build<i className="fa-solid fa-wrench"></i> 
+                        dev build<i className="fa-solid fa-wrench"></i>
                     </span>
                 </span>
                 <hr />
@@ -63,8 +65,11 @@ const Sidebar = () => {
                         <span
                             className="nav-link bg-danger text-light fs-5"
                             aria-current="page"
+                            onClick={() => {
+                                dispatch({ type: "CHANGINGSERVERS" });
+                            }}
                         >
-                           {currentServer.name}
+                            {currentServer.name}
                         </span>
                     </li>
                     <li className="nav-item">
@@ -83,7 +88,7 @@ const Sidebar = () => {
                                         });
                                     }}
                                 >
-                                 {channel.name}
+                                    {channel.name}
                                 </span>
                             );
                         })}

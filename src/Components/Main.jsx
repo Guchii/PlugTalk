@@ -3,7 +3,10 @@ import Messages from "./Messages";
 import Servers from "./Servers";
 
 const Main = () => {
-    const appData = useSelector((state) => state.app);
+    const app = useSelector((state) => state.app);
+    const user = useSelector((state) => state.user);
+    const messagesArray =
+        app.servers[user.server].channels[user.channel].messages;
     return (
         <>
             <div
@@ -13,12 +16,7 @@ const Main = () => {
                     maxWidth: "calc(100vw - 280px)",
                 }}
             >
-                <Messages
-                arrayOfMessages={appData.servers[0].channels[0].messages}
-                />
-                {
-                // <Servers/>
-                }
+            <Messages arrayOfMessages={messagesArray}/>
             </div>
         </>
     );

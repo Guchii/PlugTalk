@@ -36,10 +36,20 @@ const rootReducer = combineReducers({
                 return action.payload;
             case "LOGOUT":
                 return null;
+            case "CHANGINGSERVERS": {
+                const newState = state;
+                newState.changingServers = !newState.changingServers;
+                return newState;
+            }
             case "SWITCHCHANNEL":
                 return { ...state, channel: action.payload };
-            case "SWITCHSERVER":
-                return { ...state, server: action.payload };
+            case "SWITCHSERVER": {
+                const newState = state;
+                newState.server = action.payload;
+                newState.channel = 0;
+                newState.changingServers = false;
+                return newState;
+            }
             default:
                 return state;
         }

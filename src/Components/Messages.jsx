@@ -11,7 +11,7 @@ const GetUserDataFromDatabase = (uniqueID, whatToFind, app) => {
 
 const Messages = ({ arrayOfMessages }) => {
     const app = useSelector((state) => state.app);
-    const userPref = useSelector(state=>state.userPref)
+    const user = useSelector(state=>state.user)
     let currentValueOfInput = "";
     const dispatch = useDispatch();
 
@@ -24,8 +24,8 @@ const Messages = ({ arrayOfMessages }) => {
                 date: Date.now(),
             },
             userPref: {
-                server:0,
-                channel: 0
+                server:user.server,
+                channel: user.channel
             }
         });
         InputRef.current.value = "Message Sent";
