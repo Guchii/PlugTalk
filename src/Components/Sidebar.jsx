@@ -142,12 +142,13 @@ const SidebarChatComponent = () => {
             <ul className="nav nav-pills flex-column mb-auto">
                 <li className="nav-item">
                     <span
-                        className="nav-link bg-danger text-light fs-5"
+                        className="nav-link text-decoration-underline text-center text-light fs-5 position-relative"
                         aria-current="page"
                         onClick={() => {
                             dispatch({ type: "CHANGINGSERVERS" });
                         }}
                     >
+                        <i className="fa-solid fa-chevron-left backIcon"></i>
                         {currentServer.name}
                     </span>
                 </li>
@@ -180,7 +181,10 @@ const SidebarChatComponent = () => {
 
 const Instructions = () => {
     return (
-        <div className="d-flex flex-column justify-content-center mb-auto" style={{height:'100%'}}>
+        <div
+            className="d-flex flex-column justify-content-center mb-auto"
+            style={{ height: "100%" }}
+        >
             <p className="fs-6">
                 Hi (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧
                 <span className="d-block">

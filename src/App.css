@@ -86,3 +86,11 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
+.backIcon {
+    position: absolute;
+    left:0;
+    top: 14px;
+    left: 5px;
+
+}

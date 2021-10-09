@@ -19,7 +19,7 @@ const LoginPage = () => {
                 </div>
             </nav>
             <div
-                className="d-flex align-items-center justify-content-center bg-dark"
+                className="d-flex align-items-center justify-content-center"
                 style={{
                     height: "calc(100vh - 80px - 56px)",
                     margin: 0,
@@ -27,9 +27,7 @@ const LoginPage = () => {
                 }}
             >
                 <div className="card p-5 text-center shadow-lg">
-                    <p className="fs-4 text-dark">
-                        Hello {name ? name : ""}
-                    </p>
+                    <p className="fs-4 text-dark">Hello {name ? name : "ʕっ•ᴥ•ʔっ"}</p>
                     <form action="" className="">
                         <div className="mb-3">
                             <input
@@ -38,8 +36,8 @@ const LoginPage = () => {
                                 placeholder="UserName"
                                 onChange={(e) => {
                                     let nice = e.target.value;
-                                    if(nice.length>18){
-                                        nice = nice.substring(0,18);
+                                    if (nice.length > 18) {
+                                        nice = nice.substring(0, 18);
                                     }
                                     e.target.value = nice;
                                     setName(nice);
@@ -70,7 +68,10 @@ const LoginPage = () => {
                             </button>
                         </div>
                     </form>
-                    <button className="btn bg-warning mt-4 position-relative " onClick={signIn}>
+                    <button
+                        className="btn bg-warning mt-4 position-relative "
+                        onClick={signIn}
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -85,9 +86,9 @@ const LoginPage = () => {
                     </button>
                 </div>
             </div>
-            <footer class="footer mt-auto py-3 bg-dark">
+            <footer class="footer mt-auto py-3">
                 <div class="container d-flex justify-content-end">
-                    <span class="text-muted">v 1.0.0</span>
+                    <span class="text-muted">dev build</span>
                 </div>
             </footer>
         </div>
