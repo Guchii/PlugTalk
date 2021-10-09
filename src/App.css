@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+
 * {
     font-family: "Poppins", sans-serif;
     font-size: 500;
@@ -10,14 +11,31 @@
 
 .messageInstance {
     width: calc(100vw - 360px);
-    background-color: blanchedalmond;
+    background-color: whitesmoke;
     margin-top: 20px;
     padding: 10px;
+    display: flex;
+    justify-content: start;
+    height: 50px;
+    border-radius: 7px;
 }
 
 .Messages {
     height: 90vh;
     overflow-y: scroll;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: 100%;
+}
+
+.spacer {
+    width: calc(100vw - 360px);
+    height: 50px;
+    flex-grow: 1;
 }
 
 .Messages::-webkit-scrollbar {
@@ -31,4 +49,12 @@
 
 .MessagesParent {
     max-height: 100vh;
+}
+
+.messageName {
+    transform: scale(60%);
+}
+
+.messageValue {
+    flex-grow: 1;
 }

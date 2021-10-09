@@ -9,27 +9,36 @@ const sampleServer = {
         {
             name: "Important Messages",
             messages: [
-                "I'm the oldest message from someone",
-                "I'm an older message from someone",
-                "This is my message",
-                "This is my new message",
-                "I'm the oldest message from someone",
-                "I'm an older message from someone",
-                "This is my message",
-                "This is my new message",
-                "I'm the oldest message from someone",
-                "I'm an older message from someone",
-                "This is my message",
-                "This is my new message",
+                {
+                    value: "I'm the nice person",
+                    userUniqueId: "12345",
+                    date: null,
+                },
+                {
+                    value: "OP Bhai Op test message",
+                    userUniqueId: "12345",
+                    date: null,
+                },
+                {
+                    value: "Nice bhai nice test message from bot",
+                    userUniqueId: "12345",
+                    date: null,
+                },
             ],
         },
         {
             name: "Important Messages 2",
             messages: [
-                "I'm the oldest message from someone 2",
-                "I'm an older message from someone 2",
-                "This is my message 2",
-                "This is my new message 2",
+                {
+                    value: "I'm nicer person",
+                    userUniqueId: "12345",
+                    date: null,
+                },
+                {
+                    value: "I'm the nicest person",
+                    userUniqueId: "12345",
+                    date: null,
+                },
             ],
         },
     ],
@@ -37,7 +46,13 @@ const sampleServer = {
 
 const appInitialState = {
     servers: [sampleServer],
-    registeredUsers: 0,
+    registeredUsers: [
+        {
+            name: "Gojo The Bot",
+            uniqueID: "12345",
+            image: "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c8/c830b407476df1bfb4f6af59a98239c34f1de3b0_full.jpg",
+        },
+    ],
     version: "1.0.0",
 };
 
@@ -67,12 +82,17 @@ const rootReducer = combineReducers({
     },
     app: (state = appInitialState, action) => {
         switch (action.type) {
-            case "CREATESERVER":
+            case "CREATESERVER": {
                 const Servers = state.servers;
                 Servers.push(action.payload);
                 return { ...state, servers: Servers };
+            }
             case "DELETESERVER":
                 return state;
+            case "SENDMESSAGE":
+                const Servers = state.servers;
+                Servers[0].channels[0].messages.push(action.payload);
+                return { ...state, servers: Servers };
             default:
                 return state;
         }

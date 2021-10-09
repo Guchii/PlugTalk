@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./Components/Sidebar";
 import Main from "./Components/Main";
 import LoginPage from "./LoginPage";
