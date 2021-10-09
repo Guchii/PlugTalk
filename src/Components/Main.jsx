@@ -1,22 +1,24 @@
+import { useSelector } from "react-redux";
 import Messages from "./Messages";
-import Servers from "./Servers"
+import Servers from "./Servers";
 
 const Main = () => {
-  return (
-    <>
-      <h1 className="fs-2 m-3 position-absolute" style={{display:'none'}}>
-        Hello this is main component
-      </h1>
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{
-          height: "100vh",
-        }}
-      >
-            <Servers/>
-      </div>
-    </>
-  );
+    const appData = useSelector((state) => state.app);
+    return (
+        <>
+            <div
+                className="d-flex justify-content-center align-items-end"
+                style={{
+                    height: "auto",
+                    maxWidth: "calc(100vw - 280px)",
+                }}
+            >
+                <Messages
+                    arrayOfMessages={appData.servers[0].channels[0].messages}
+                />
+            </div>
+        </>
+    );
 };
 
 export default Main;

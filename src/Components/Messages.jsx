@@ -1,28 +1,29 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
-const Messages = () => {
-    const appData = useSelector((state) => state.app);
-    const arrayOfMessages = appData.servers[0].channels[0].messages;
+const Messages = ({ arrayOfMessages }) => {
     return (
-        <div className="d-flex align-content-end">
-            {arrayOfMessages.length === 0 && (
-                <span className="fs-3">
-                    I am the messages component & I am currently empty rn
-                </span>
-            )}
-            {arrayOfMessages.map((message) => (
-                <Message value={message} />
-            ))}
-        <input
-          type="text"
-          className="form-control bg-dark text-light position-sticky bottom-0 my-3 fs-5 mx-auto"
-          style={{
-            width: "calc(100vw - 360px)",
-            padding: "10px",
-          }}
-          placeholder="Enter your message ..."
-        />
+        <div className="MessagesParent">
+            <div className="Messages">
+                {arrayOfMessages.length === 0 && (
+                    <span className="fs-3">
+                        I am the messages component & I am currently empty rn
+                    </span>
+                )}
+                {arrayOfMessages.map((message) => (
+                    <Message value={message} />
+                ))}
+            </div>
+            <div className="messInput">
+                <input
+                    type="text"
+                    className="form-control bg-dark text-light bottom-0 my-3 fs-5 mx-auto"
+                    style={{
+                        width: "calc(100vw - 360px)",
+                        padding: "10px",
+                    }}
+                    placeholder="Enter your message ..."
+                />
+            </div>
         </div>
     );
 };
