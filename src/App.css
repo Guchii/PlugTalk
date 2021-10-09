@@ -70,3 +70,19 @@
     position: relative;
     bottom: -4px;
 }
+
+.main {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.card-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}

@@ -8,10 +8,12 @@ const sampleServer = {
     channels: [
         {
             name: "Suggestions ⊂(◉‿◉)つ",
+            uniqueID:"21371987",
             messages: [],
         },
         {
             name: "ʕっ•ᴥ•ʔっ Bear Hug",
+            uniqueID:"3243840284",
             messages: [],
         },
     ],

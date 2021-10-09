@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 const Sidebar = () => {
     const addServer = () => {
         const name = prompt("Enter a valid name for your new server");
-        let channelName = prompt("Enter name for the first channel");
-        if (!channelName) channelName = "channel 1";
         if (name) {
+            let channelName = prompt("Enter name for the first channel");
+            if (!channelName) channelName = "New Channel ԅ(≖‿≖ԅ)";
             dispatch({
                 type: "CREATESERVER",
                 payload: {
@@ -17,6 +17,7 @@ const Sidebar = () => {
                     channels: [
                         {
                             name: channelName,
+                            uniqueID: uuidv4(),
                             messages: [],
                         },
                     ],
@@ -32,7 +33,8 @@ const Sidebar = () => {
             payload: {
                 channel: {
                     name,
-                    messages: ["Welcome To Your New Channel"],
+                    messages: [],
+                    uniqueID: uuidv4(),
                 },
                 server: user.server,
             },
@@ -49,7 +51,7 @@ const Sidebar = () => {
                 className="d-flex flex-column flex-shrink-0 p-3 text-white bg-success"
                 style={{ width: "280px", height: "100vh" }}
             >
-                <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white">
                     <span
                         className="fs-4"
                         id="sidebarTitle"
@@ -62,40 +64,11 @@ const Sidebar = () => {
                     </span>
                 </span>
                 <hr />
-                <ul className="nav nav-pills flex-column mb-auto">
-                    <li className="nav-item">
-                        <span
-                            className="nav-link bg-danger text-light fs-5"
-                            aria-current="page"
-                            onClick={() => {
-                                dispatch({ type: "CHANGINGSERVERS" });
-                            }}
-                        >
-                            {currentServer.name}
-                        </span>
-                    </li>
-                    <li className="nav-item">
-                        {channelsArray.map((channel, index) => {
-                            return (
-                                <span
-                                    className={
-                                        index === user.channel
-                                            ? "nav-link bg-warning text-dark mt-3"
-                                            : "nav-link text-light mt-3"
-                                    }
-                                    onClick={() => {
-                                        dispatch({
-                                            type: "SWITCHCHANNEL",
-                                            payload: index,
-                                        });
-                                    }}
-                                >
-                                    {channel.name}
-                                </span>
-                            );
-                        })}
-                    </li>
-                </ul>
+                {user.changingServers ? (
+                    <Instructions />
+                ) : (
+                    <SidebarChatComponent />
+                )}
                 <hr />
                 <div className="dropdown">
                     <span
@@ -158,4 +131,63 @@ const Sidebar = () => {
     );
 };
 
+const SidebarChatComponent = () => {
+    const user = useSelector((state) => state.user);
+    const app = useSelector((state) => state.app);
+    const dispatch = useDispatch();
+    const currentServer = app.servers[user.server];
+    const channelsArray = currentServer.channels;
+    return (
+        <>
+            <ul className="nav nav-pills flex-column mb-auto">
+                <li className="nav-item">
+                    <span
+                        className="nav-link bg-danger text-light fs-5"
+                        aria-current="page"
+                        onClick={() => {
+                            dispatch({ type: "CHANGINGSERVERS" });
+                        }}
+                    >
+                        {currentServer.name}
+                    </span>
+                </li>
+                <li className="nav-item">
+                    {channelsArray.map((channel, index) => {
+                        return (
+                            <span
+                                className={
+                                    index === user.channel
+                                        ? "nav-link bg-warning text-dark mt-3"
+                                        : "nav-link text-light mt-3"
+                                }
+                                onClick={() => {
+                                    dispatch({
+                                        type: "SWITCHCHANNEL",
+                                        payload: index,
+                                    });
+                                }}
+                                key={channel.uniqueID}
+                            >
+                                {channel.name}
+                            </span>
+                        );
+                    })}
+                </li>
+            </ul>
+        </>
+    );
+};
+
+const Instructions = () => {
+    return (
+        <div className="d-flex flex-column justify-content-center mb-auto" style={{height:'100%'}}>
+            <p className="fs-6">
+                Hi (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧
+                <span className="d-block">
+                    Choose a server or Create a new one from the dropdown below.
+                </span>
+            </p>
+        </div>
+    );
+};
 export default Sidebar;

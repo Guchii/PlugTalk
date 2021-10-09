@@ -8,7 +8,6 @@ const Main = () => {
     const user = useSelector((state) => state.user);
     const messagesArray =
         app.servers[user.server].channels[user.channel].messages;
-    const [showMessages, setShowMessages] = useState(user.changingServers);
     const dispatch = useDispatch();
     return (
         <>

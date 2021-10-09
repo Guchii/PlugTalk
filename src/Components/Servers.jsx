@@ -6,8 +6,7 @@ const Servers = ({showMessages}) => {
     const dispatch = useDispatch();
     return (
         <div
-            className="d-flex justify-content-start flex-wrap mt-5"
-            style={{ height: "100%", maxWidth: "90%" }}
+            className="card-container"
         >
             {app.servers.map((server, index) => {
                 return (
