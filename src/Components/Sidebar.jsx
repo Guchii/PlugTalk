@@ -25,16 +25,18 @@ const Sidebar = () => {
         }
     };
     const addChannel = () => {
-        const name = prompt("Enter a valid name for your new channel");
-        if (name) {
-            dispatch({
-                type: "CREATECHANNEL",
-                payload: {
+        let name = prompt("Enter a valid name for your new channel");
+        if (!name) name = "New Channel ԅ(≖‿≖ԅ)";
+        dispatch({
+            type: "CREATECHANNEL",
+            payload: {
+                channel: {
                     name,
-                    messages: ["Test Message 1"],
+                    messages: ["Welcome To Your New Channel"],
                 },
-            });
-        }
+                server: user.server,
+            },
+        });
     };
     const user = useSelector((state) => state.user);
     const app = useSelector((state) => state.app);

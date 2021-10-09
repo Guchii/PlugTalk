@@ -1,7 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
 const sampleServer = {
-    name: "Sample Server",
+    name: "Testing Server",
     uniqueID: "12345",
     members: null,
     owner: null,
@@ -37,17 +37,23 @@ const rootReducer = combineReducers({
             case "LOGOUT":
                 return null;
             case "CHANGINGSERVERS": {
-                const newState = state;
-                newState.changingServers = !newState.changingServers;
+                let newState = state;
+                newState = {
+                    ...newState,
+                    changingServers: !newState.changingServers,
+                };
                 return newState;
             }
             case "SWITCHCHANNEL":
                 return { ...state, channel: action.payload };
             case "SWITCHSERVER": {
-                const newState = state;
-                newState.server = action.payload;
-                newState.channel = 0;
-                newState.changingServers = false;
+                let newState = state;
+                newState = {
+                    ...newState,
+                    server: action.payload,
+                    channel: 0,
+                    changingServers: false,
+                };
                 return newState;
             }
             default:
@@ -63,6 +69,11 @@ const rootReducer = combineReducers({
             }
             case "DELETESERVER":
                 return state;
+            case "CREATECHANNEL": {
+                let Servers = state.servers;
+                Servers[action.payload.server].channels.push(action.payload.channel)
+                return {...state, servers: Servers};
+            }
             case "SENDMESSAGE":
                 const Servers = state.servers;
                 Servers[action.userPref.server].channels[

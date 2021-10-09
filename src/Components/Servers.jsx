@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-const Servers = () => {
+const Servers = ({showMessages}) => {
     const app = useSelector((state) => state.app);
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
@@ -18,10 +18,7 @@ const Servers = () => {
                             width: "250px",
                         }}
                         onClick={()=>{
-                            dispatch({
-                                type: "SWITCHSERVER",
-                                payload: index,
-                            })
+                            showMessages(index);
                         }}
                     >
                         <div class="card-body">{server.name}</div>

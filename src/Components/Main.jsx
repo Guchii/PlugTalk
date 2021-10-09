@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Messages from "./Messages";
 import Servers from "./Servers";
 
@@ -7,6 +8,8 @@ const Main = () => {
     const user = useSelector((state) => state.user);
     const messagesArray =
         app.servers[user.server].channels[user.channel].messages;
+    const [showMessages, setShowMessages] = useState(user.changingServers);
+    const dispatch = useDispatch();
     return (
         <>
             <div
@@ -16,7 +19,18 @@ const Main = () => {
                     maxWidth: "calc(100vw - 280px)",
                 }}
             >
-            <Messages arrayOfMessages={messagesArray}/>
+                {!user.changingServers ? (
+                    <Messages arrayOfMessages={messagesArray} />
+                ) : (
+                    <Servers
+                        showMessages={(index) => {
+                            dispatch({
+                                type: "SWITCHSERVER",
+                                payload: index,
+                            });
+                        }}
+                    />
+                )}{" "}
             </div>
         </>
     );
