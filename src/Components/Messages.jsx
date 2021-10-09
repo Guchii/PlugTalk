@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -23,10 +23,17 @@ const Messages = ({ arrayOfMessages }) => {
                 date: Date.now(),
             },
         });
+        InputRef.current.value = "MessageSent";
+        setTimeout(() => (InputRef.current.value = ""), 200);
+        MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight;
     };
+
+    const MessagesRef = useRef();
+    const InputRef = useRef();
+
     return (
         <div className="MessagesParent">
-            <div className="Messages">
+            <div className="Messages" ref={MessagesRef}>
                 {arrayOfMessages.length === 0 && (
                     <span className="fs-3">
                         I am the messages component & I am currently empty rn
@@ -66,6 +73,7 @@ const Messages = ({ arrayOfMessages }) => {
                             sendMessage();
                         }
                     }}
+                    ref={InputRef}
                 />
             </div>
         </div>

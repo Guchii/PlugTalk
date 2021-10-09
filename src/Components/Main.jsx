@@ -14,8 +14,11 @@ const Main = () => {
                 }}
             >
                 <Messages
-                    arrayOfMessages={appData.servers[0].channels[0].messages}
+                arrayOfMessages={appData.servers[0].channels[0].messages}
                 />
+                {
+                // <Servers/>
+                }
             </div>
         </>
     );
