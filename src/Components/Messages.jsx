@@ -11,6 +11,7 @@ const GetUserDataFromDatabase = (uniqueID, whatToFind, app) => {
 
 const Messages = ({ arrayOfMessages }) => {
     const app = useSelector((state) => state.app);
+    const userPref = useSelector(state=>state.userPref)
     let currentValueOfInput = "";
     const dispatch = useDispatch();
 
@@ -19,13 +20,17 @@ const Messages = ({ arrayOfMessages }) => {
             type: "SENDMESSAGE",
             payload: {
                 value: currentValueOfInput,
-                uniqueID: "12345",
+                uniqueUserID: "12345",
                 date: Date.now(),
             },
+            userPref: {
+                server:0,
+                channel: 0
+            }
         });
-        InputRef.current.value = "MessageSent";
+        InputRef.current.value = "Message Sent";
         setTimeout(() => (InputRef.current.value = ""), 200);
-        MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight;
+        MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight + 50;
     };
 
     const MessagesRef = useRef();
@@ -34,13 +39,13 @@ const Messages = ({ arrayOfMessages }) => {
     return (
         <div className="MessagesParent">
             <div className="Messages" ref={MessagesRef}>
-                {arrayOfMessages.length === 0 && (
-                    <span className="fs-3">
-                        I am the messages component & I am currently empty rn
-                    </span>
-                )}
                 <div className="flex">
                     <div className="spacer"> </div>
+                    {arrayOfMessages.length === 0 && (
+                        <span className="fs-3">
+                            No Messages in the channel
+                        </span>
+                    )}
                     {arrayOfMessages.map((message) => (
                         <Message
                             key={uuidv4()}

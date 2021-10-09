@@ -7,39 +7,12 @@ const sampleServer = {
     owner: null,
     channels: [
         {
-            name: "Important Messages",
-            messages: [
-                {
-                    value: "I'm the nice person",
-                    userUniqueId: "12345",
-                    date: null,
-                },
-                {
-                    value: "OP Bhai Op test message",
-                    userUniqueId: "12345",
-                    date: null,
-                },
-                {
-                    value: "Nice bhai nice test message from bot",
-                    userUniqueId: "12345",
-                    date: null,
-                },
-            ],
+            name: "Suggestions ⊂(◉‿◉)つ",
+            messages: [],
         },
         {
-            name: "Important Messages 2",
-            messages: [
-                {
-                    value: "I'm nicer person",
-                    userUniqueId: "12345",
-                    date: null,
-                },
-                {
-                    value: "I'm the nicest person",
-                    userUniqueId: "12345",
-                    date: null,
-                },
-            ],
+            name: "ʕっ•ᴥ•ʔっ Bear Hug",
+            messages: [],
         },
     ],
 };
@@ -56,26 +29,17 @@ const appInitialState = {
     version: "1.0.0",
 };
 
-const userPreferences = {
-    servers: [
-        {
-            uniqueID: "12345",
-            channel: 2,
-            time: null,
-        },
-    ],
-};
-
 const rootReducer = combineReducers({
-    userData: (state = null, action) => {
-        return state;
-    },
     user: (state = null, action) => {
         switch (action.type) {
             case "LOGIN":
                 return action.payload;
             case "LOGOUT":
                 return null;
+            case "SWITCHCHANNEL":
+                return { ...state, channel: action.payload };
+            case "SWITCHSERVER":
+                return { ...state, server: action.payload };
             default:
                 return state;
         }
@@ -91,7 +55,9 @@ const rootReducer = combineReducers({
                 return state;
             case "SENDMESSAGE":
                 const Servers = state.servers;
-                Servers[0].channels[0].messages.push(action.payload);
+                Servers[action.userPref.server].channels[
+                    action.userPref.channel
+                ].messages.push(action.payload);
                 return { ...state, servers: Servers };
             default:
                 return state;

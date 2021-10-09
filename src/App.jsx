@@ -20,6 +20,8 @@ function App() {
                         email: authUser.email,
                         displayName: authUser.displayName,
                         image: authUser.photoURL,
+                        server: 0,
+                        channel: 0,
                     },
                 });
             } else {

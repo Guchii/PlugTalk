@@ -29,15 +29,15 @@ const Sidebar = () => {
                 type: "CREATECHANNEL",
                 payload: {
                     name,
-                    messages: [
-                        "Test Message 1",
-                    ],
+                    messages: ["Test Message 1"],
                 },
             });
         }
     };
     const user = useSelector((state) => state.user);
+    const app = useSelector((state) => state.app);
     const dispatch = useDispatch();
+    const channelsArray = app.servers[user.server].channels;
     return (
         <>
             <div
@@ -52,7 +52,9 @@ const Sidebar = () => {
                     >
                         Plug Talk
                     </span>
-                    <span className="px-4 d-inline-block text-wrap">dev build</span>
+                    <span className="px-4 d-inline-block text-wrap">
+                        dev build
+                    </span>
                 </span>
                 <hr />
                 <ul className="nav nav-pills flex-column mb-auto">
@@ -64,10 +66,22 @@ const Sidebar = () => {
                             Your Servers
                         </span>
                     </li>
-                    <li>
-                        <span className="nav-link text-white">Channel 1</span>
-                        <span className="nav-link text-white">Channel 2</span>
-                        <span className="nav-link text-white">Channel 3</span>
+                    <li className="nav-item">
+                        {channelsArray.map((channel, index) => {
+                            return (
+                                <span
+                                    className={index===user.channel?"nav-link bg-warning text-dark mt-3":"nav-link text-light mt-3"}
+                                    onClick={() => {
+                                        dispatch({
+                                            type: "SWITCHCHANNEL",
+                                            payload: index,
+                                        });
+                                    }}
+                                >
+                                    {channel.name}
+                                </span>
+                            );
+                        })}
                     </li>
                 </ul>
                 <hr />
@@ -92,7 +106,12 @@ const Sidebar = () => {
                         aria-labelledby="dropdownUser1"
                     >
                         <li>
-                            <span className="dropdown-item" onClick={addChannel}>New channel</span>
+                            <span
+                                className="dropdown-item"
+                                onClick={addChannel}
+                            >
+                                New channel
+                            </span>
                         </li>
                         <li>
                             <span className="dropdown-item" onClick={addServer}>
