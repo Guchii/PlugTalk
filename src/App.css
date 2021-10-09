@@ -58,3 +58,15 @@
 .messageValue {
     flex-grow: 1;
 }
+
+/* ICONS */
+.versionText .fa-solid {
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+}
+
+.versionText {
+    position: relative;
+    bottom: -4px;
+}

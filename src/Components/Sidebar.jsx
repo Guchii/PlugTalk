@@ -37,7 +37,8 @@ const Sidebar = () => {
     const user = useSelector((state) => state.user);
     const app = useSelector((state) => state.app);
     const dispatch = useDispatch();
-    const channelsArray = app.servers[user.server].channels;
+    const currentServer = app.servers[user.server];
+    const channelsArray = currentServer.channels;
     return (
         <>
             <div
@@ -52,25 +53,29 @@ const Sidebar = () => {
                     >
                         Plug Talk
                     </span>
-                    <span className="px-4 d-inline-block text-wrap">
-                        dev build
+                    <span className="px-4 d-inline-block text-wrap versionText">
+                      dev build<i className="fa-solid fa-wrench"></i> 
                     </span>
                 </span>
                 <hr />
                 <ul className="nav nav-pills flex-column mb-auto">
                     <li className="nav-item">
                         <span
-                            className="nav-link bg-warning text-dark"
+                            className="nav-link bg-danger text-light fs-5"
                             aria-current="page"
                         >
-                            Your Servers
+                           {currentServer.name}
                         </span>
                     </li>
                     <li className="nav-item">
                         {channelsArray.map((channel, index) => {
                             return (
                                 <span
-                                    className={index===user.channel?"nav-link bg-warning text-dark mt-3":"nav-link text-light mt-3"}
+                                    className={
+                                        index === user.channel
+                                            ? "nav-link bg-warning text-dark mt-3"
+                                            : "nav-link text-light mt-3"
+                                    }
                                     onClick={() => {
                                         dispatch({
                                             type: "SWITCHCHANNEL",
@@ -78,7 +83,7 @@ const Sidebar = () => {
                                         });
                                     }}
                                 >
-                                    {channel.name}
+                                 {channel.name}
                                 </span>
                             );
                         })}
