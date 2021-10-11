@@ -30,17 +30,17 @@ const Messages = ({ arrayOfMessages }) => {
         });
         InputRef.current.value = "Message Sent";
         setTimeout(() => (InputRef.current.value = ""), 200);
-        MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight + 50;
+        MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight;
     };
 
     const MessagesRef = useRef();
     const InputRef = useRef();
 
     return (
-        <div className="MessagesParent">
+        <div className="MessagesParent" >
             <div className="Messages" ref={MessagesRef}>
                 <div className="flex">
-                    <div className="spacer"> </div>
+                    {/* <div className="spacer"> </div> */}
                     {arrayOfMessages.length === 0 && (
                         <span className="fs-3">
                             No Messages in the channel
@@ -63,7 +63,7 @@ const Messages = ({ arrayOfMessages }) => {
             <div className="messInput">
                 <input
                     type="text"
-                    className="form-control bg-dark text-light bottom-0 my-3 fs-5 mx-auto"
+                    className="form-control bottom-0 mt-3 fs-5 mx-auto"
                     style={{
                         width: "calc(100vw - 360px)",
                         padding: "10px",
