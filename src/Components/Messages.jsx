@@ -39,8 +39,7 @@ const Messages = ({ arrayOfMessages }) => {
     return (
         <div className="MessagesParent" >
             <div className="Messages" ref={MessagesRef}>
-                <div className="flex">
-                    {/* <div className="spacer"> </div> */}
+            <div className="spacer"></div>
                     {arrayOfMessages.length === 0 && (
                         <span className="fs-3">
                             No Messages in the channel
@@ -58,7 +57,6 @@ const Messages = ({ arrayOfMessages }) => {
                             name={GetUserDataFromDatabase("12345", "name", app)}
                         />
                     ))}
-                </div>
             </div>
             <div className="messInput">
                 <input

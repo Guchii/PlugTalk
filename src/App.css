@@ -25,38 +25,22 @@
 }
 
 .Messages {
-}
-
-.flex {
-    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: end;
-    overflow-y: auto;
+    min-height: 0px;
 }
 
 .spacer {
-    width: calc(100vw - 360px);
-    height: 50px;
-    flex-grow: 1;
+    flex: 1;
 }
 
-.Messages::-webkit-scrollbar {
-    display: none;
-}
-
-.Messages {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
 
 .MessagesParent {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: end;
-    max-height: 100vh;
-    margin-bottom: 10px;
 }
 
 .messageName {
@@ -68,6 +52,7 @@
 }
 
 .messInput {
+    margin-bottom: 10px;
 }
 /* ICONS */
 .versionText .fa-solid {
