@@ -1,5 +1,3 @@
-import { red } from "@material-ui/core/colors";
-import { Autorenew } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import Messages from "./Messages";
 import Servers from "./Servers";

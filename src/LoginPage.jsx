@@ -19,7 +19,7 @@ const LoginPage = () => {
                 </div>
             </nav>
             <div
-                className="d-flex align-items-center justify-content-center"
+                className="d-flex align-items-center justify-content-center bg-dark"
                 style={{
                     height: "calc(100vh - 80px - 56px)",
                     margin: 0,
@@ -86,7 +86,7 @@ const LoginPage = () => {
                     </button>
                 </div>
             </div>
-            <footer class="footer mt-auto py-3">
+            <footer class="footer mt-auto py-3 bg-dark">
                 <div class="container d-flex justify-content-end">
                     <span class="text-muted">dev build</span>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Components/Sidebar";
 import Main from "./Components/Main";
 import LoginPage from "./LoginPage";
@@ -6,7 +6,7 @@ import { auth } from "./firebase";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 
-function App() {
+const App = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     useEffect(() => {
@@ -42,8 +42,7 @@ function App() {
                     <div className="container-fluid">
                         <div className="row">
                             <div
-                                className="col"
-                                style={{ backgroundColor: "black" }}
+                                className="col bg-dark"
                             >
                                 <Main />
                             </div>
@@ -59,6 +58,6 @@ function App() {
             )}
         </div>
     );
-}
+};
 
 export default App;
