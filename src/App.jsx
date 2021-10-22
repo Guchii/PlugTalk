@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./Components/Sidebar";
 import Main from "./Components/Main";
 import LoginPage from "./LoginPage";
-import { auth } from "./firebase";
+import db, { auth } from "./firebase";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,6 +25,15 @@ const App = () => {
                         changingServers: true,
                     },
                 });
+                
+                //create or change user in users collections in database
+
+                db.collection("users").doc(authUser.uid).set({
+                    email: authUser.email,
+                    displayName: authUser.displayName,
+                    image: authUser.photoURL,
+                });
+
             } else {
                 dispatch({
                     type: "LOGOUT",
@@ -41,9 +50,7 @@ const App = () => {
                 <>
                     <div className="container-fluid">
                         <div className="row">
-                            <div
-                                className="col bg-dark"
-                            >
+                            <div className="col bg-dark">
                                 <Main />
                             </div>
                             <div
