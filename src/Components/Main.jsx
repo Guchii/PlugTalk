@@ -9,16 +9,12 @@ const Main = () => {
             <div
                 className="d-flex justify-content-center align-items-end"
                 style={{
-                    height: 'auto',
+                    height: "auto",
                     maxHeight: "100vh",
                     maxWidth: "calc(100vw - 280px)",
                 }}
             >
-                {!user.changingServers ? (
-                    <Messages />
-                ) : (
-                    <Servers/>
-                )}{" "}
+                {!user.changingServers ? <Messages /> : <Servers />}{" "}
             </div>
         </>
     );
