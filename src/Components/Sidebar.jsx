@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
+import { doc, getDoc } from "firebase/firestore";
 import db from "../firebase";
 
 const Sidebar = () => {
@@ -25,17 +25,13 @@ const Sidebar = () => {
     const addChannel = () => {
         let name = prompt("Enter a valid name for your new channel");
         if (!name) name = "New Channel ԅ(≖‿≖ԅ)";
-        dispatch({
-            type: "CREATECHANNEL",
-            payload: {
-                channel: {
-                    name,
-                    messages: [],
-                    uniqueID: uuidv4(),
-                },
-                server: user.server,
-            },
-        });
+        db.collection("servers")
+            .doc(user.server)
+            .collection("channels")
+            .doc()
+            .set({
+                name,
+            });
     };
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
@@ -46,7 +42,14 @@ const Sidebar = () => {
                 .doc(user.server)
                 .collection("channels")
                 .onSnapshot((snapshot) => {
-                    setchannelsArray(snapshot.docs);
+                    setchannelsArray(
+                        snapshot.docs.map((doc) => {
+                            return {
+                                id: doc.id,
+                                name: doc.data().name,
+                            };
+                        })
+                    );
                 });
         }
     }, [user.server]);
@@ -142,8 +145,20 @@ const Sidebar = () => {
 
 const SidebarChatComponent = ({ channelsArray }) => {
     const user = useSelector((state) => state.user);
-    const app = useSelector((state) => state.app);
     const dispatch = useDispatch();
+    const [serverName, setServerName] = useState("My Server");
+    const GetServerName = () => {};
+    useEffect(() => {
+        db.collection("servers")
+            .doc(user.server)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    setServerName(doc.data().name);
+                }
+            });
+    }, [user.server]);
+    GetServerName();
     return (
         <>
             <ul className="nav nav-pills flex-column mb-auto">
@@ -156,22 +171,22 @@ const SidebarChatComponent = ({ channelsArray }) => {
                         }}
                     >
                         <i className="fa-solid fa-chevron-left backIcon"></i>
-                        My Server Name
+                        {serverName}
                     </span>
                 </li>
                 <li className="nav-item">
-                    {channelsArray.map((channel, index) => {
+                    {channelsArray.map((channel) => {
                         return (
                             <span
                                 className={
-                                    index === user.channel
-                                        ? "nav-link bg-warning text-dark mt-3"
+                                    channel.id === user.channel
+                                        ? "nav-link bg-warning text-dark mt-3 shadow"
                                         : "nav-link text-light mt-3"
                                 }
                                 onClick={() => {
                                     dispatch({
-                                        type: "SWITCHCHANNEL",
-                                        payload: index,
+                                        type: "SWITCHCHANNELS",
+                                        payload: channel.id,
                                     });
                                 }}
                                 key={channel.uniqueID}
