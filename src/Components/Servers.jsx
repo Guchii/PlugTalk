@@ -29,6 +29,7 @@ const Servers = () => {
                             width: "250px",
                         }}
                         onClick={() => {
+
                             // Below code gets the first channelid from the selected server from firestore.
 
                             db.collection("servers")

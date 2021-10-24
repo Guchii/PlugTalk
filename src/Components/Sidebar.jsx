@@ -149,14 +149,16 @@ const SidebarChatComponent = ({ channelsArray }) => {
     const [serverName, setServerName] = useState("My Server");
     const GetServerName = () => {};
     useEffect(() => {
-        db.collection("servers")
-            .doc(user.server)
-            .get()
-            .then((doc) => {
-                if (doc.exists) {
-                    setServerName(doc.data().name);
-                }
-            });
+        if (user.server) {
+            db.collection("servers")
+                .doc(user.server)
+                .get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        setServerName(doc.data().name);
+                    }
+                });
+        }
     }, [user.server]);
     GetServerName();
     return (
