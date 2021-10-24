@@ -25,7 +25,7 @@ const App = () => {
                         changingServers: true,
                     },
                 });
-                
+
                 //create or change user in users collections in database
 
                 db.collection("users").doc(authUser.uid).set({
@@ -33,7 +33,6 @@ const App = () => {
                     displayName: authUser.displayName,
                     image: authUser.photoURL,
                 });
-
             } else {
                 dispatch({
                     type: "LOGOUT",

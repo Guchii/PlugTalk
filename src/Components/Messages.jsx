@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import db from "../firebase";
 
 const GetUserDataFromDatabase = (uniqueID, whatToFind, app) => {
     const user = app.registeredUsers.find(
