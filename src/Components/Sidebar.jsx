@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import db from "../firebase"
+import db from "../firebase";
 
 const Sidebar = () => {
     const addServer = () => {
@@ -8,29 +9,33 @@ const Sidebar = () => {
         if (name) {
             let channelName = prompt("Enter name for the first channel");
             if (!channelName) channelName = "New Channel ԅ(≖‿≖ԅ)";
-            dispatch({
-                type: "CREATESERVER",
-                payload: {
-                    name,
-                    uniqueID: uuidv4(),
-                    members: [user],
-                    owner: user,
-                    channels: [
-                        {
-                            name: channelName,
-                            uniqueID: uuidv4(),
-                            messages: [],
-                        },
-                    ],
-                },
-            });
+            // dispatch({
+            //     type: "CREATESERVER",
+            //     payload: {
+            //         name,
+            //         uniqueID: uuidv4(),
+            //         members: [user],
+            //         owner: user,
+            //         channels: [
+            //             {
+            //                 name: channelName,
+            //                 uniqueID: uuidv4(),
+            //                 messages: [],
+            //             },
+            //         ],
+            //     },
+            // });
             const newServer = db.collection("servers").doc();
             newServer.set({
                 name,
-            })
-            db.collection("servers").doc(newServer.id).collection("channels").doc().set({
-                name: channelName
-            })
+            });
+            db.collection("servers")
+                .doc(newServer.id)
+                .collection("channels")
+                .doc()
+                .set({
+                    name: channelName,
+                });
         }
     };
     const addChannel = () => {
@@ -51,8 +56,17 @@ const Sidebar = () => {
     const user = useSelector((state) => state.user);
     const app = useSelector((state) => state.app);
     const dispatch = useDispatch();
-    const currentServer = app.servers[user.server];
-    const channelsArray = currentServer.channels;
+    const [channelsArray, setchannelsArray] = useState([]);
+    useEffect(() => {
+        if (user.server) {
+            db.collection("servers")
+                .doc(user.server)
+                .collection("channels")
+                .onSnapshot((snapshot) => {
+                    setchannelsArray(snapshot.docs);
+                });
+        }
+    }, [user.server]);
     return (
         <>
             <div
@@ -75,7 +89,7 @@ const Sidebar = () => {
                 {user.changingServers ? (
                     <Instructions />
                 ) : (
-                    <SidebarChatComponent />
+                    <SidebarChatComponent channelsArray={channelsArray} />
                 )}
                 <hr />
                 <div className="dropdown">
@@ -139,12 +153,10 @@ const Sidebar = () => {
     );
 };
 
-const SidebarChatComponent = () => {
+const SidebarChatComponent = ({ channelsArray }) => {
     const user = useSelector((state) => state.user);
     const app = useSelector((state) => state.app);
     const dispatch = useDispatch();
-    const currentServer = app.servers[user.server];
-    const channelsArray = currentServer.channels;
     return (
         <>
             <ul className="nav nav-pills flex-column mb-auto">
@@ -157,7 +169,7 @@ const SidebarChatComponent = () => {
                         }}
                     >
                         <i className="fa-solid fa-chevron-left backIcon"></i>
-                        {currentServer.name}
+                        My Server Name
                     </span>
                 </li>
                 <li className="nav-item">

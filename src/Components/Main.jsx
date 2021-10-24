@@ -5,8 +5,8 @@ import Servers from "./Servers";
 const Main = () => {
     const app = useSelector((state) => state.app);
     const user = useSelector((state) => state.user);
-    const messagesArray =
-        app.servers[user.server].channels[user.channel].messages;
+    // const messagesArray =
+    //     app.servers[user.server].channels[user.channel].messages;
     const dispatch = useDispatch();
     return (
         <>
@@ -19,16 +19,9 @@ const Main = () => {
                 }}
             >
                 {!user.changingServers ? (
-                    <Messages arrayOfMessages={messagesArray} />
+                    <Messages />
                 ) : (
-                    <Servers
-                        showMessages={(index) => {
-                            dispatch({
-                                type: "SWITCHSERVER",
-                                payload: index,
-                            });
-                        }}
-                    />
+                    <Servers/>
                 )}{" "}
             </div>
         </>

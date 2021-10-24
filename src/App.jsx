@@ -20,9 +20,8 @@ const App = () => {
                         email: authUser.email,
                         displayName: authUser.displayName,
                         image: authUser.photoURL,
-                        server: 0,
-                        channel: 0,
-                        changingServers: true,
+                        server: "wpEez3vHM8gpzqS3vnYx",
+                        channel: "7gPFp5lHiTkdn1ygN6BX",
                     },
                 });
 
@@ -56,7 +55,9 @@ const App = () => {
                                 className="col-auto d-flex justify-content-end p-0"
                                 style={{ backgroundColor: "#4CAB78" }}
                             >
-                                <Sidebar style={{ width: "280px" }} />
+                                <Sidebar 
+                                style={{ width: "280px" }}
+                                />
                             </div>
                         </div>
                     </div>

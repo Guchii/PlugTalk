@@ -1,34 +1,50 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import db from "../firebase";
+import firebase from "@firebase/app-compat";
 
-const GetUserDataFromDatabase = (uniqueID, whatToFind, app) => {
-    const user = app.registeredUsers.find(
-        (element) => element.uniqueID === uniqueID
-    );
-    return user[whatToFind];
-};
+const Messages = () => {
+    const user = useSelector((state) => state.user);
+    const [arrayOfMessages, setArrayOfMessages] = useState([]);
 
-const Messages = ({ arrayOfMessages }) => {
-    const app = useSelector((state) => state.app);
-    const user = useSelector(state=>state.user)
+    useEffect(() => {
+        if (user.server && user.channel) {
+            db.collection("servers")
+                .doc(user.server)
+                .collection("channels")
+                .doc(user.channel)
+                .collection("messages")
+                .orderBy("timestamp")
+                .onSnapshot((snapshot) => {
+                    setArrayOfMessages(snapshot.docs.map((doc) => doc.data()));
+                });
+        }
+    }, [user.server, user.channel]);
     let currentValueOfInput = "";
-    const dispatch = useDispatch();
-
     const sendMessage = () => {
-        dispatch({
-            type: "SENDMESSAGE",
-            payload: {
-                value: currentValueOfInput,
-                uniqueUserID: "12345",
-                date: Date.now(),
-            },
-            userPref: {
-                server:user.server,
-                channel: user.channel
-            }
-        });
+        db.collection("servers")
+            .doc(user.server)
+            .collection("channels")
+            .doc(user.channel)
+            .collection("messages")
+            .add({
+                user: user,
+                message: currentValueOfInput,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+        // dispatch({
+        //     type: "SENDMESSAGE",
+        //     payload: {
+        //         value: currentValueOfInput,
+        //         uniqueUserID: "12345",
+        //         date: Date.now(),
+        //     },
+        //     userPref: {
+        //         server: user.server,
+        //         channel: user.channel,
+        //     },
+        // });
         InputRef.current.value = "Message Sent";
         setTimeout(() => (InputRef.current.value = ""), 200);
         MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight;
@@ -38,26 +54,20 @@ const Messages = ({ arrayOfMessages }) => {
     const InputRef = useRef();
 
     return (
-        <div className="MessagesParent" >
+        <div className="MessagesParent">
             <div className="Messages" ref={MessagesRef}>
-            <div className="spacer"></div>
-                    {arrayOfMessages.length === 0 && (
-                        <span className="fs-3">
-                            No Messages in the channel
-                        </span>
-                    )}
-                    {arrayOfMessages.map((message) => (
-                        <Message
-                            key={uuidv4()}
-                            value={message.value}
-                            image={GetUserDataFromDatabase(
-                                "12345",
-                                "image",
-                                app
-                            )}
-                            name={GetUserDataFromDatabase("12345", "name", app)}
-                        />
-                    ))}
+                <div className="spacer"></div>
+                {arrayOfMessages.length === 0 && (
+                    <span className="fs-3">No Messages in the channel</span>
+                )}
+                {arrayOfMessages.map((message) => (
+                    <Message
+                        key={uuidv4()}
+                        value={message.message}
+                        image={user.image}
+                        name={user.displayName}
+                    />
+                ))}
             </div>
             <div className="messInput">
                 <input

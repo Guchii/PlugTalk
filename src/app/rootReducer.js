@@ -8,12 +8,12 @@ const sampleServer = {
     channels: [
         {
             name: "Suggestions ⊂(◉‿◉)つ",
-            uniqueID:"21371987",
+            uniqueID: "21371987",
             messages: [],
         },
         {
             name: "ʕっ•ᴥ•ʔっ Bear Hug",
-            uniqueID:"3243840284",
+            uniqueID: "3243840284",
             messages: [],
         },
     ],
@@ -46,17 +46,10 @@ const rootReducer = combineReducers({
                 };
                 return newState;
             }
-            case "SWITCHCHANNEL":
+            case "SWITCHCHANNELS":
                 return { ...state, channel: action.payload };
-            case "SWITCHSERVER": {
-                let newState = state;
-                newState = {
-                    ...newState,
-                    server: action.payload,
-                    channel: 0,
-                    changingServers: false,
-                };
-                return newState;
+            case "SWITCHSERVERS": {
+                return {...state, server: action.payload};
             }
             default:
                 return state;
@@ -73,8 +66,10 @@ const rootReducer = combineReducers({
                 return state;
             case "CREATECHANNEL": {
                 let Servers = state.servers;
-                Servers[action.payload.server].channels.push(action.payload.channel)
-                return {...state, servers: Servers};
+                Servers[action.payload.server].channels.push(
+                    action.payload.channel
+                );
+                return { ...state, servers: Servers };
             }
             case "SENDMESSAGE":
                 const Servers = state.servers;

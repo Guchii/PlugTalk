@@ -8,7 +8,7 @@ const Servers = ({showMessages}) => {
         <div
             className="card-container"
         >
-            {app.servers.map((server, index) => {
+            {app.servers.map((server) => {
                 return (
                     <div
                         class="card d-flex justify-content-center align-items-start m-3 text-wrap bg-warning text-dark"
@@ -17,7 +17,10 @@ const Servers = ({showMessages}) => {
                             width: "250px",
                         }}
                         onClick={()=>{
-                            showMessages(index);
+                            dispatch({
+                                type: "SWITCHSERVERS",
+                                payload: server.uniqueID
+                            })
                         }}
                     >
                         <div class="card-body">{server.name}</div>
