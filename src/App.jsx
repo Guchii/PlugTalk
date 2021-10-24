@@ -20,8 +20,9 @@ const App = () => {
                         email: authUser.email,
                         displayName: authUser.displayName,
                         image: authUser.photoURL,
-                        server: "wpEez3vHM8gpzqS3vnYx",
-                        channel: "7gPFp5lHiTkdn1ygN6BX",
+                        server: null,
+                        channel: null,
+                        changingServers: true
                     },
                 });
 

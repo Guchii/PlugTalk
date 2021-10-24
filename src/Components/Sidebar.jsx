@@ -9,22 +9,6 @@ const Sidebar = () => {
         if (name) {
             let channelName = prompt("Enter name for the first channel");
             if (!channelName) channelName = "New Channel ԅ(≖‿≖ԅ)";
-            // dispatch({
-            //     type: "CREATESERVER",
-            //     payload: {
-            //         name,
-            //         uniqueID: uuidv4(),
-            //         members: [user],
-            //         owner: user,
-            //         channels: [
-            //             {
-            //                 name: channelName,
-            //                 uniqueID: uuidv4(),
-            //                 messages: [],
-            //             },
-            //         ],
-            //     },
-            // });
             const newServer = db.collection("servers").doc();
             newServer.set({
                 name,
@@ -54,7 +38,6 @@ const Sidebar = () => {
         });
     };
     const user = useSelector((state) => state.user);
-    const app = useSelector((state) => state.app);
     const dispatch = useDispatch();
     const [channelsArray, setchannelsArray] = useState([]);
     useEffect(() => {
@@ -112,14 +95,18 @@ const Sidebar = () => {
                         className="dropdown-menu dropdown-menu-dark text-small shadow"
                         aria-labelledby="dropdownUser1"
                     >
-                        <li>
-                            <span
-                                className="dropdown-item"
-                                onClick={addChannel}
-                            >
-                                New channel
-                            </span>
-                        </li>
+                        {!user.changingServers && (
+                            <>
+                                <li>
+                                    <span
+                                        className="dropdown-item"
+                                        onClick={addChannel}
+                                    >
+                                        New channel
+                                    </span>
+                                </li>
+                            </>
+                        )}
                         <li>
                             <span className="dropdown-item" onClick={addServer}>
                                 New server

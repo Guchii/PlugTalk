@@ -3,11 +3,7 @@ import Messages from "./Messages";
 import Servers from "./Servers";
 
 const Main = () => {
-    const app = useSelector((state) => state.app);
     const user = useSelector((state) => state.user);
-    // const messagesArray =
-    //     app.servers[user.server].channels[user.channel].messages;
-    const dispatch = useDispatch();
     return (
         <>
             <div

@@ -49,7 +49,7 @@ const rootReducer = combineReducers({
             case "SWITCHCHANNELS":
                 return { ...state, channel: action.payload };
             case "SWITCHSERVERS": {
-                return {...state, server: action.payload};
+                return {...state, server: action.payload, changingServers: false};
             }
             default:
                 return state;

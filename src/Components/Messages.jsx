@@ -33,18 +33,6 @@ const Messages = () => {
                 message: currentValueOfInput,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             });
-        // dispatch({
-        //     type: "SENDMESSAGE",
-        //     payload: {
-        //         value: currentValueOfInput,
-        //         uniqueUserID: "12345",
-        //         date: Date.now(),
-        //     },
-        //     userPref: {
-        //         server: user.server,
-        //         channel: user.channel,
-        //     },
-        // });
         InputRef.current.value = "Message Sent";
         setTimeout(() => (InputRef.current.value = ""), 200);
         MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight;
@@ -64,8 +52,8 @@ const Messages = () => {
                     <Message
                         key={uuidv4()}
                         value={message.message}
-                        image={user.image}
-                        name={user.displayName}
+                        image={message.user.image}
+                        name={message.user.displayName}
                     />
                 ))}
             </div>
