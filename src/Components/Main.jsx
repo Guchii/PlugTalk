@@ -7,12 +7,7 @@ const Main = () => {
     return (
         <>
             <div
-                className="d-flex justify-content-center align-items-end"
-                style={{
-                    height: "auto",
-                    maxHeight: "100vh",
-                    maxWidth: "calc(100vw - 280px)",
-                }}
+                className="d-flex w-100 justify-content-center h-100 align-items-center"
             >
                 {!user.changingServers ? <Messages /> : <Servers />}{" "}
             </div>

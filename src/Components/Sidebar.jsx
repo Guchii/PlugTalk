@@ -57,7 +57,7 @@ const Sidebar = () => {
         <>
             <div
                 className="d-flex flex-column flex-shrink-0 p-3 text-white bg-success"
-                style={{ width: "280px", height: "100vh" }}
+                style={{ width: "100%", height: "100vh" }}
             >
                 <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white">
                     <span

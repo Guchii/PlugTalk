@@ -19,17 +19,15 @@ const Servers = () => {
         });
     });
     return (
-        <div className="card-container">
+        <div className="h-auto w-100 my-5 d-flex justify-content-center align-items-center text-wrap flex-wrap">
             {serversArray.map((server) => {
                 return (
                     <div
-                        class="card d-flex justify-content-center align-items-start m-3 text-wrap bg-warning text-dark"
+                        className="card h-auto d-flex justify-content-center m-3 text-wrap bg-warning text-dark shadow"
                         style={{
-                            height: "50px",
                             width: "250px",
                         }}
                         onClick={() => {
-
                             // Below code gets the first channelid from the selected server from firestore.
 
                             db.collection("servers")
@@ -50,7 +48,7 @@ const Servers = () => {
                                 });
                         }}
                     >
-                        <div class="card-body">{server.name}</div>
+                        <div className="card-body">{server.name}</div>
                     </div>
                 );
             })}

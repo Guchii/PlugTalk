@@ -42,11 +42,13 @@ const Messages = () => {
     const InputRef = useRef();
 
     return (
-        <div className="MessagesParent">
+        <div className="MessagesParent w-100">
             <div className="Messages" ref={MessagesRef}>
                 <div className="spacer"></div>
                 {arrayOfMessages.length === 0 && (
-                    <span className="fs-3">No Messages in the channel</span>
+                    <span className="fs-3 text-light">
+                        No Messages in the channel
+                    </span>
                 )}
                 {arrayOfMessages.map((message) => (
                     <Message
@@ -57,14 +59,10 @@ const Messages = () => {
                     />
                 ))}
             </div>
-            <div className="messInput">
+            <div className="my-3 mx-2">
                 <input
                     type="text"
-                    className="form-control bottom-0 mt-3 fs-5 mx-auto"
-                    style={{
-                        width: "calc(100vw - 360px)",
-                        padding: "10px",
-                    }}
+                    className="form-control fs-5 p-3 w-100"
                     placeholder="Enter your message ..."
                     onChange={(e) => {
                         currentValueOfInput = e.target.value;
@@ -84,7 +82,7 @@ const Messages = () => {
 
 const Message = ({ image, value, name, date = null }) => {
     return (
-        <div className="messageInstance fs-5 shadow">
+        <div className="mt-3 p-3 mx-2 bg-success text-light d-flex rounded fs-5">
             <img
                 src={image}
                 alt=""
@@ -92,7 +90,9 @@ const Message = ({ image, value, name, date = null }) => {
                 height="32"
                 className="rounded-circle me-2"
             />
-            <span className="messageValue">{value}</span>
+            <span className="messageValue text-break text-wrap px-1 w-50">
+                {value}
+            </span>
             <span className="messageName"> {name}</span>
             <span>{date}</span>
         </div>

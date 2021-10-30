@@ -5,9 +5,15 @@ import LoginPage from "./LoginPage";
 import db, { auth } from "./firebase";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
+import useMediaQuery from "./useMediaQuery";
+import classNames from "classnames";
 
 const App = () => {
     const dispatch = useDispatch();
+    const isMobile = !useMediaQuery("(min-width: 768px)");
+    const siderbarClassNames = classNames("d-flex justify-content-end p-0", {
+        "col": isMobile,
+    });
     const user = useSelector((state) => state.user);
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
@@ -22,7 +28,7 @@ const App = () => {
                         image: authUser.photoURL,
                         server: null,
                         channel: null,
-                        changingServers: true
+                        changingServers: true,
                     },
                 });
 
@@ -49,16 +55,17 @@ const App = () => {
                 <>
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col bg-dark">
-                                <Main />
-                            </div>
                             <div
-                                className="col-auto d-flex justify-content-end p-0"
-                                style={{ backgroundColor: "#4CAB78" }}
+                                className={siderbarClassNames}
+                                style={{
+                                    backgroundColor: "#4CAB78",
+                                    width: "280px",
+                                }}
                             >
-                                <Sidebar 
-                                style={{ width: "280px" }}
-                                />
+                                <Sidebar />
+                            </div>
+                            <div className="bg-dark col">
+                                <Main />
                             </div>
                         </div>
                     </div>
