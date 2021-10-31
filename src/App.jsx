@@ -12,7 +12,7 @@ const App = () => {
     const dispatch = useDispatch();
     const isMobile = !useMediaQuery("(min-width: 768px)");
     const siderbarClassNames = classNames("p-0", {
-        col: isMobile,
+        "vw-100": isMobile,
     });
     const user = useSelector((state) => state.user);
     useEffect(() => {

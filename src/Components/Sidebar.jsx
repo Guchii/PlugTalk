@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import db from "../firebase";
+import useMediaQuery from "../useMediaQuery";
 
 const Sidebar = () => {
+    const isMobile = !useMediaQuery('(min-width:768px)');
     const addServer = async () => {
         const name = prompt("Enter a valid name for your new server");
         if (name) {
@@ -55,8 +57,7 @@ const Sidebar = () => {
     return (
         <>
             <div
-                className="d-flex flex-column border-end flex-shrink-0 p-3 text-white bg-dark w-100"
-                style={{ height: "100vh" }}
+                className="d-flex flex-column border-end flex-shrink-0 p-3 text-white bg-dark w-100 vh-100"
             >
                 <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white">
                     <span
