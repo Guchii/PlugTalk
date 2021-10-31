@@ -7,7 +7,7 @@ const Main = () => {
     return (
         <>
             <div
-                className="d-flex w-100 justify-content-center h-100 align-items-center"
+                className="h-100"
             >
                 {!user.changingServers ? <Messages /> : <Servers />}{" "}
             </div>

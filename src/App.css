@@ -31,10 +31,17 @@
     min-height: 0px;
 }
 
-.spacer {
-    flex: 1;
+.chat {
+    flex: 0.75;
+}
+.chat__messages::-webkit-scrollbar {
+    display: none;
 }
 
+.chat__messages {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
 .MessagesParent {
     height: 100vh;
@@ -52,8 +59,8 @@
 }
 
 .messInput {
-    
 }
+
 /* ICONS */
 .versionText .fa-solid {
     position: absolute;
@@ -85,8 +92,7 @@
 
 .backIcon {
     position: absolute;
-    left:0;
+    left: 0;
     top: 14px;
     left: 5px;
-
 }

@@ -52,16 +52,21 @@ const Messages = () => {
             });
         InputRef.current.value = "Message Sent";
         setTimeout(() => (InputRef.current.value = ""), 200);
-        MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight;
     };
+
+    useEffect(() => {
+        MessagesRef.current.scrollTop = MessagesRef.current.scrollHeight;
+    });
 
     const MessagesRef = useRef();
     const InputRef = useRef();
 
     return (
-        <div className="MessagesParent w-100">
-            <div className="Messages" ref={MessagesRef}>
-                <div className="spacer"></div>
+        <div className="d-flex flex-column justify-content-end flex-grow-1 vh-100">
+            <div
+                className="overflow-auto justify-content-end chat__messages"
+                ref={MessagesRef}
+            >
                 {arrayOfMessages.length === 0 && (
                     <span className="fs-3 text-light mx-2">
                         No Messages in the channel (╥﹏╥)
@@ -81,7 +86,7 @@ const Messages = () => {
                 <input
                     type="text"
                     className="form-control bg-dark text-light fs-5 p-3 w-100 border-bottom messInput"
-                    placeholder="Enter your message ..."
+                    placeholder="Enter your message ⏎"
                     onChange={(e) => {
                         currentValueOfInput = e.target.value;
                     }}

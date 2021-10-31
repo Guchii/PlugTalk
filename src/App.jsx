@@ -11,8 +11,8 @@ import classNames from "classnames";
 const App = () => {
     const dispatch = useDispatch();
     const isMobile = !useMediaQuery("(min-width: 768px)");
-    const siderbarClassNames = classNames(" d-flex justify-content-end p-0", {
-        "col": isMobile,
+    const siderbarClassNames = classNames("p-0", {
+        col: isMobile,
     });
     const user = useSelector((state) => state.user);
     useEffect(() => {

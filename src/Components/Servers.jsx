@@ -19,6 +19,7 @@ const Servers = () => {
         });
     });
     return (
+        <div className="d-flex flex-column justify-content-center h-100">
         <div className="h-auto w-100 my-5 d-flex justify-content-center align-items-center text-wrap flex-wrap">
             {serversArray.map((server) => {
                 return (
@@ -52,6 +53,7 @@ const Servers = () => {
                     </div>
                 );
             })}
+        </div>
         </div>
     );
 };
