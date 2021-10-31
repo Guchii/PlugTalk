@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { doc, getDoc } from "firebase/firestore";
 import db from "../firebase";
 
 const Sidebar = () => {
-    const addServer = () => {
+    const addServer = async () => {
         const name = prompt("Enter a valid name for your new server");
         if (name) {
             let channelName = prompt("Enter name for the first channel");
@@ -56,8 +55,8 @@ const Sidebar = () => {
     return (
         <>
             <div
-                className="d-flex flex-column flex-shrink-0 p-3 text-white bg-success"
-                style={{ width: "100%", height: "100vh" }}
+                className="d-flex flex-column border-end flex-shrink-0 p-3 text-white bg-dark w-100"
+                style={{ height: "100vh" }}
             >
                 <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white">
                     <span
@@ -166,7 +165,7 @@ const SidebarChatComponent = ({ channelsArray }) => {
             <ul className="nav nav-pills flex-column mb-auto">
                 <li className="nav-item">
                     <span
-                        className="nav-link text-decoration-underline text-center text-light fs-5 position-relative"
+                        className="nav-link text-center text-light fs-5 position-relative"
                         aria-current="page"
                         onClick={() => {
                             dispatch({ type: "CHANGINGSERVERS" });
@@ -182,7 +181,7 @@ const SidebarChatComponent = ({ channelsArray }) => {
                             <span
                                 className={
                                     channel.id === user.channel
-                                        ? "nav-link bg-warning text-dark mt-3 shadow"
+                                        ? "nav-link bg-light text-dark mt-3 shadow"
                                         : "nav-link text-light mt-3"
                                 }
                                 onClick={() => {

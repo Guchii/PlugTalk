@@ -22,6 +22,23 @@ const Messages = () => {
         }
     }, [user.server, user.channel]);
     let currentValueOfInput = "";
+    const secondsToDate = (message) => {
+        let currentDate = new Date();
+        try {
+            let timeStampDate = message.timestamp.toDate();
+            return `${timeStampDate
+                .getHours()
+                .toString()
+                .padStart(2, "0")}:${timeStampDate
+                .getMinutes()
+                .toString()
+                .padStart(2, "0")}`;
+        } catch (e) {
+            let hours = currentDate.getHours().toString().padStart(2, "0");
+            let minutes = currentDate.getMinutes().toString().padStart(2, "0");
+            return `${hours}:${minutes}`;
+        }
+    };
     const sendMessage = () => {
         db.collection("servers")
             .doc(user.server)
@@ -46,8 +63,8 @@ const Messages = () => {
             <div className="Messages" ref={MessagesRef}>
                 <div className="spacer"></div>
                 {arrayOfMessages.length === 0 && (
-                    <span className="fs-3 text-light">
-                        No Messages in the channel
+                    <span className="fs-3 text-light mx-2">
+                        No Messages in the channel (╥﹏╥)
                     </span>
                 )}
                 {arrayOfMessages.map((message) => (
@@ -56,13 +73,14 @@ const Messages = () => {
                         value={message.message}
                         image={message.user.image}
                         name={message.user.displayName}
+                        time={secondsToDate(message)}
                     />
                 ))}
             </div>
             <div className="my-3 mx-2">
                 <input
                     type="text"
-                    className="form-control fs-5 p-3 w-100"
+                    className="form-control bg-dark text-light fs-5 p-3 w-100 border-bottom messInput"
                     placeholder="Enter your message ..."
                     onChange={(e) => {
                         currentValueOfInput = e.target.value;
@@ -80,9 +98,10 @@ const Messages = () => {
     );
 };
 
-const Message = ({ image, value, name, date = null }) => {
+const Message = ({ image, value, name, time }) => {
     return (
-        <div className="mt-3 p-3 mx-2 bg-success text-light d-flex rounded fs-5">
+        <div className="mt-3 p-3 mx-2 d-flex align-items-center rounded fs-5 bg-dark text-light shadow">
+            <span className="fs-6 me-3">{time}</span>
             <img
                 src={image}
                 alt=""
@@ -94,7 +113,6 @@ const Message = ({ image, value, name, date = null }) => {
                 {value}
             </span>
             <span className="messageName"> {name}</span>
-            <span>{date}</span>
         </div>
     );
 };

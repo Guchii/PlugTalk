@@ -9904,6 +9904,11 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-alert-async@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-alert-async/-/react-alert-async-1.2.0.tgz#16b39fa6bae31880f43dd41df03bb39cf59ca4a7"
+  integrity sha512-/BYEEtWJpjqJAW7L9/euu9mL+c3FNKzk7pBh7PaeghWxAEOv1WJuoTbCxfykXv2VydXw5VDKvFGKL3vP/r/c5Q==
+
 react-app-polyfill@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/react-app-polyfill/-/react-app-polyfill-2.0.0.tgz"

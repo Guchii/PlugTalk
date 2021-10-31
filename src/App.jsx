@@ -11,7 +11,7 @@ import classNames from "classnames";
 const App = () => {
     const dispatch = useDispatch();
     const isMobile = !useMediaQuery("(min-width: 768px)");
-    const siderbarClassNames = classNames("d-flex justify-content-end p-0", {
+    const siderbarClassNames = classNames(" d-flex justify-content-end p-0", {
         "col": isMobile,
     });
     const user = useSelector((state) => state.user);
@@ -59,7 +59,7 @@ const App = () => {
                                 className={siderbarClassNames}
                                 style={{
                                     backgroundColor: "#4CAB78",
-                                    width: "280px",
+                                    width: "300px",
                                 }}
                             >
                                 <Sidebar />

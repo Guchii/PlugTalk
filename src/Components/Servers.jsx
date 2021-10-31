@@ -23,7 +23,7 @@ const Servers = () => {
             {serversArray.map((server) => {
                 return (
                     <div
-                        className="card h-auto d-flex justify-content-center m-3 text-wrap bg-warning text-dark shadow"
+                        className="card h-auto d-flex justify-content-center m-3 text-wrap bg-dark text-light shadow"
                         style={{
                             width: "250px",
                         }}
