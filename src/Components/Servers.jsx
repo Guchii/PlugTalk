@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import db from "../firebase";
 
 const Servers = () => {
-    const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const [serversArray, setServersArray] = useState([]);
     const [numOfUsers, setNumOfUsers] = useState([0]);

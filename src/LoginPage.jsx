@@ -10,7 +10,6 @@ const LoginPage = () => {
         <div className="login-container">
             <nav
                 className="navbar navbar-light bg-success"
-                // style={{ backgroundColor: "#4CAB78" }}
             >
                 <div className="container-fluid d-flex justify-content-center text-light">
                     <span className="navbar-brand mb-0 h1 fs-2 text-dark">

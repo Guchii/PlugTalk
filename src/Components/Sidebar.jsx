@@ -1,24 +1,31 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import db from "../firebase";
-import useMediaQuery from "../useMediaQuery";
 
 const Sidebar = () => {
-    // const isMobile = !useMediaQuery('(min-width:768px)');
     const addServer = async () => {
         const name = prompt("Enter a valid name for your new server");
         if (name) {
             let channelName = prompt("Enter name for the first channel");
             if (!channelName) channelName = "New Channel ԅ(≖‿≖ԅ)";
-            const newServer = db.collection("servers").doc();
-            newServer.set({
+            // const newServer = db.collection("servers").doc();
+            // newServer.set({
+            //     name,
+            // });
+            // db.collection("servers")
+            //     .doc(newServer.id)
+            //     .collection("channels")
+            //     .doc()
+            //     .set({
+            //         name: channelName,
+            //     });
+            const newServer = await db.collection("servers").add({
                 name,
             });
             db.collection("servers")
                 .doc(newServer.id)
                 .collection("channels")
-                .doc()
-                .set({
+                .add({
                     name: channelName,
                 });
         }
@@ -29,8 +36,7 @@ const Sidebar = () => {
         db.collection("servers")
             .doc(user.server)
             .collection("channels")
-            .doc()
-            .set({
+            .add({
                 name,
             });
     };

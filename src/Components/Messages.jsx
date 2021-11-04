@@ -21,7 +21,9 @@ const Messages = () => {
                 });
         }
     }, [user.server, user.channel]);
+
     let currentValueOfInput = "";
+
     const secondsToDate = (message) => {
         let currentDate = new Date();
         try {
@@ -39,6 +41,7 @@ const Messages = () => {
             return `${hours}:${minutes}`;
         }
     };
+
     const sendMessage = () => {
         db.collection("servers")
             .doc(user.server)
@@ -69,7 +72,8 @@ const Messages = () => {
             >
                 {arrayOfMessages.length === 0 && (
                     <span className="fs-3 text-light mx-2">
-                        No Messages in the channel (╥﹏╥)
+                        No Messages in the channel{" "}
+                        <span className="text-white">(╥﹏╥)</span>
                     </span>
                 )}
                 {arrayOfMessages.map((message) => (
