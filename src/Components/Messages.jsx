@@ -114,7 +114,7 @@ const Message = ({ image, value, name, time }) => {
                 height="32"
                 className="rounded-circle me-2"
             />
-            <span className="messageValue text-break text-wrap px-1 w-50">
+            <span className="messageValue text-break text-wrap text-white px-1 w-50">
                 {value}
             </span>
             <span className="messageName"> {name}</span>

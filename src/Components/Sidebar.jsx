@@ -4,7 +4,7 @@ import db from "../firebase";
 import useMediaQuery from "../useMediaQuery";
 
 const Sidebar = () => {
-    const isMobile = !useMediaQuery('(min-width:768px)');
+    // const isMobile = !useMediaQuery('(min-width:768px)');
     const addServer = async () => {
         const name = prompt("Enter a valid name for your new server");
         if (name) {
@@ -57,18 +57,18 @@ const Sidebar = () => {
     return (
         <>
             <div
-                className="d-flex flex-column border-end flex-shrink-0 p-3 text-white bg-dark w-100 vh-100"
+                className="d-flex flex-column flex-shrink-0 p-3 text-light bg-dark w-100 vh-100 border-end border-light"
             >
-                <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white">
+                <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto ">
                     <span
-                        className="fs-4"
+                        className="fs-4 text-white"
                         id="sidebarTitle"
                         style={{ fontFamily: "'Montserrat', sans-serif" }}
                     >
                         Plug Talk
                     </span>
                     <span className="px-4 d-inline-block text-wrap versionText">
-                        dev build<i className="fa-solid fa-wrench"></i>
+                        {process.env.REACT_APP_plugtalk_build} build<i className="fa-solid fa-wrench"></i>
                     </span>
                 </span>
                 <hr />
@@ -166,7 +166,7 @@ const SidebarChatComponent = ({ channelsArray }) => {
             <ul className="nav nav-pills flex-column mb-auto">
                 <li className="nav-item">
                     <span
-                        className="nav-link text-center text-light fs-5 position-relative"
+                        className="nav-link text-center text-white fs-5 position-relative"
                         aria-current="page"
                         onClick={() => {
                             dispatch({ type: "CHANGINGSERVERS" });
@@ -210,7 +210,7 @@ const Instructions = () => {
             style={{ height: "100%" }}
         >
             <p className="fs-6">
-                Hi (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧
+                Hi <span className="text-white">(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</span>
                 <span className="d-block">
                     Choose a server or Create a new one from the dropdown below.
                 </span>

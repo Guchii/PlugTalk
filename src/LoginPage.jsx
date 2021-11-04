@@ -9,11 +9,11 @@ const LoginPage = () => {
     return (
         <div className="login-container">
             <nav
-                className="navbar navbar-light"
-                style={{ backgroundColor: "#4CAB78" }}
+                className="navbar navbar-light bg-success"
+                // style={{ backgroundColor: "#4CAB78" }}
             >
                 <div className="container-fluid d-flex justify-content-center text-light">
-                    <span className="navbar-brand mb-0 h1 fs-2 text-white">
+                    <span className="navbar-brand mb-0 h1 fs-2 text-dark">
                         Plug Talk
                     </span>
                 </div>
@@ -26,12 +26,12 @@ const LoginPage = () => {
                     padding: 0,
                 }}
             >
-                <div className="card p-5 text-center shadow-lg">
-                    <p className="fs-4 text-dark">Hello {name ? name : "ʕっ•ᴥ•ʔっ"}</p>
+                <div className="card p-5 text-center shadow-lg bg-dark">
+                    <p className="fs-4 text-light">Hello <span className="text-white">{name ? name : "ʕっ•ᴥ•ʔっ"}</span></p>
                     <form action="" className="">
                         <div className="mb-3">
                             <input
-                                className="form-control"
+                                className="form-control bg-dark text-white"
                                 type="text"
                                 placeholder="UserName"
                                 onChange={(e) => {
@@ -46,7 +46,7 @@ const LoginPage = () => {
                         </div>
                         <div className="mb-3">
                             <input
-                                className="form-control"
+                                className="form-control bg-dark text-white"
                                 type="password"
                                 placeholder="Password"
                             />
@@ -87,8 +87,9 @@ const LoginPage = () => {
                 </div>
             </div>
             <footer class="footer mt-auto py-3 bg-dark">
-                <div class="container d-flex justify-content-end">
-                    <span class="text-muted">dev build</span>
+                <div class="container d-flex justify-content-between">
+                    <span class="text-muted">{2} users registered</span>
+                    <span class="text-muted">{process.env.REACT_APP_plugtalk_build} build</span>
                 </div>
             </footer>
         </div>

@@ -3,7 +3,7 @@ import Sidebar from "./Components/Sidebar";
 import Main from "./Components/Main";
 import LoginPage from "./LoginPage";
 import db, { auth } from "./firebase";
-import "./App.css";
+import "./App.scss";
 import { useDispatch, useSelector } from "react-redux";
 import useMediaQuery from "./useMediaQuery";
 import classNames from "classnames";
@@ -11,7 +11,7 @@ import classNames from "classnames";
 const App = () => {
     const dispatch = useDispatch();
     const isMobile = !useMediaQuery("(min-width: 768px)");
-    const siderbarClassNames = classNames("p-0", {
+    const sidebarClassNames = classNames("p-0", {
         "vw-100": isMobile,
     });
     const user = useSelector((state) => state.user);
@@ -56,7 +56,7 @@ const App = () => {
                     <div className="container-fluid">
                         <div className="row">
                             <div
-                                className={siderbarClassNames}
+                                className={sidebarClassNames}
                                 style={{
                                     backgroundColor: "#4CAB78",
                                     width: "300px",
@@ -66,6 +66,7 @@ const App = () => {
                             </div>
                             <div className="bg-dark col">
                                 <Main />
+                                
                             </div>
                         </div>
                     </div>
