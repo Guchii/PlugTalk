@@ -56,9 +56,7 @@ const Sidebar = () => {
     }, [user.server]);
     return (
         <>
-            <div
-                className="d-flex flex-column flex-shrink-0 p-3 text-light bg-dark w-100 vh-100 border-end border-light"
-            >
+            <div className="d-flex flex-column flex-shrink-0 p-3 text-light w-100 vh-100 border-end border-light">
                 <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto ">
                     <span
                         className="fs-4 text-white"
@@ -68,7 +66,8 @@ const Sidebar = () => {
                         Plug Talk
                     </span>
                     <span className="px-4 d-inline-block text-wrap versionText">
-                        {process.env.REACT_APP_plugtalk_build} build<i className="fa-solid fa-wrench"></i>
+                        {process.env.REACT_APP_plugtalk_build} build
+                        <i className="fa-solid fa-wrench"></i>
                     </span>
                 </span>
                 <hr />
@@ -182,7 +181,7 @@ const SidebarChatComponent = ({ channelsArray }) => {
                             <span
                                 className={
                                     channel.id === user.channel
-                                        ? "nav-link bg-light text-dark mt-3 shadow"
+                                        ? "nav-link bg-success text-dark mt-3 shadow"
                                         : "nav-link text-light mt-3"
                                 }
                                 onClick={() => {

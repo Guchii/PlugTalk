@@ -11,7 +11,7 @@ import classNames from "classnames";
 const App = () => {
     const dispatch = useDispatch();
     const isMobile = !useMediaQuery("(min-width: 768px)");
-    const sidebarClassNames = classNames("p-0", {
+    const sidebarClassNames = classNames("p-0 bg-dark", {
         "vw-100": isMobile,
     });
     const user = useSelector((state) => state.user);
@@ -64,9 +64,13 @@ const App = () => {
                             >
                                 <Sidebar />
                             </div>
-                            <div className="bg-dark col">
+                            <div
+                                className="col"
+                                style={{
+                                    backgroundColor: "#24283b",
+                                }}
+                            >
                                 <Main />
-                                
                             </div>
                         </div>
                     </div>

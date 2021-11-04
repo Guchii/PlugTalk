@@ -26,7 +26,11 @@ const LoginPage = () => {
                     padding: 0,
                 }}
             >
-                <div className="card p-5 text-center shadow-lg bg-dark">
+                <div className="card p-5 text-center shadow-lg mx-3 mx-lg-0"
+                style={{
+                    backgroundColor:'#24283b'
+                }}
+                >
                     <p className="fs-4 text-light">Hello <span className="text-white">{name ? name : "ʕっ•ᴥ•ʔっ"}</span></p>
                     <form action="" className="">
                         <div className="mb-3">
