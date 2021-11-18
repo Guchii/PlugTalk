@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
+import toast, { Toaster } from "react-hot-toast";
 import db from "../firebase";
 import firebase from "@firebase/app-compat";
+import { Input } from "@material-ui/core";
 
 const Messages = () => {
     const user = useSelector((state) => state.user);
@@ -17,7 +18,11 @@ const Messages = () => {
                 .collection("messages")
                 .orderBy("timestamp")
                 .onSnapshot((snapshot) => {
-                    setArrayOfMessages(snapshot.docs.map((doc) => doc.data()));
+                    setArrayOfMessages(
+                        snapshot.docs.map((doc) => {
+                            return { id: doc.id, ...doc.data() };
+                        })
+                    );
                 });
         }
     }, [user.server, user.channel]);
@@ -43,18 +48,32 @@ const Messages = () => {
     };
 
     const sendMessage = () => {
-        db.collection("servers")
+        if (InputRef.current.value) {
+            db.collection("servers")
+                .doc(user.server)
+                .collection("channels")
+                .doc(user.channel)
+                .collection("messages")
+                .add({
+                    user: user,
+                    message: currentValueOfInput,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                });
+            InputRef.current.value = "Message Sent";
+            setTimeout(() => (InputRef.current.value = ""), 200);
+        }
+    };
+
+    const deleteMessage = async (id) => {
+        console.log("delete called");
+        await db
+            .collection("servers")
             .doc(user.server)
             .collection("channels")
             .doc(user.channel)
             .collection("messages")
-            .add({
-                user: user,
-                message: currentValueOfInput,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            });
-        InputRef.current.value = "Message Sent";
-        setTimeout(() => (InputRef.current.value = ""), 200);
+            .doc(id)
+            .delete();
     };
 
     useEffect(() => {
@@ -78,7 +97,9 @@ const Messages = () => {
                 )}
                 {arrayOfMessages.map((message) => (
                     <Message
-                        key={uuidv4()}
+                        key={message.id}
+                        id={message.id}
+                        deleteMessage={deleteMessage}
                         value={message.message}
                         image={message.user.image}
                         name={message.user.displayName}
@@ -107,9 +128,17 @@ const Messages = () => {
     );
 };
 
-const Message = ({ image, value, name, time }) => {
+const Message = ({ image, value, name, deleteMessage, time, id }) => {
     return (
-        <div className="mt-3 p-3 mx-2 d-flex align-items-center rounded fs-5 bg-dark text-light shadow">
+        <div
+            className="mt-3 p-3 mx-2 d-flex align-items-center rounded fs-5 bg-dark text-light shadow"
+            onContextMenu={async (e) => {
+                e.preventDefault();
+                await deleteMessage(id);
+                toast.success("Message deleted");
+            }}
+        >
+            <Toaster />
             <span className="fs-6 me-3">{time}</span>
             <img
                 src={image}

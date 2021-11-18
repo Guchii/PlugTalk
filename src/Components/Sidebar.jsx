@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import db from "../firebase";
+import toast, { Toaster } from "react-hot-toast";
 
 const Sidebar = () => {
     const addServer = async () => {
@@ -8,26 +9,20 @@ const Sidebar = () => {
         if (name) {
             let channelName = prompt("Enter name for the first channel");
             if (!channelName) channelName = "New Channel ԅ(≖‿≖ԅ)";
-            // const newServer = db.collection("servers").doc();
-            // newServer.set({
-            //     name,
-            // });
-            // db.collection("servers")
-            //     .doc(newServer.id)
-            //     .collection("channels")
-            //     .doc()
-            //     .set({
-            //         name: channelName,
-            //     });
             const newServer = await db.collection("servers").add({
                 name,
             });
-            db.collection("servers")
-                .doc(newServer.id)
-                .collection("channels")
-                .add({
-                    name: channelName,
-                });
+            const addChannel = db.collection("servers")
+            .doc(newServer.id)
+            .collection("channels")
+            .add({
+                name: channelName,
+            })
+            await toast.promise(addChannel, {
+                loading: "Creating your Server", 
+                success: "Successfully created your server",
+                error: "An Error Occurred"
+            })
         }
     };
     const addChannel = () => {
@@ -38,6 +33,12 @@ const Sidebar = () => {
             .collection("channels")
             .add({
                 name,
+            })
+            .then(() => {
+                toast.success("added your channel");
+            })
+            .catch((e) => {
+                toast.error("An error occurred.");
             });
     };
     const user = useSelector((state) => state.user);
@@ -62,6 +63,7 @@ const Sidebar = () => {
     }, [user.server]);
     return (
         <>
+            <Toaster />
             <div className="d-flex flex-column flex-shrink-0 p-3 text-light w-100 vh-100 border-end border-light">
                 <span className="d-flex align-items-center mb-3 mb-md-0 me-md-auto ">
                     <span
