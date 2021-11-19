@@ -64,16 +64,19 @@ const Messages = () => {
         }
     };
 
-    const deleteMessage = async (id) => {
-        console.log("delete called");
-        await db
-            .collection("servers")
+    const deleteMessage = async (id, userUid) => {
+        if(user.uid === userUid){
+            await db.collection("servers")
             .doc(user.server)
             .collection("channels")
             .doc(user.channel)
             .collection("messages")
             .doc(id)
             .delete();
+            toast.success("Message deleted");
+        } else {
+            toast.error("You can only delete your own messages")
+        }
     };
 
     useEffect(() => {
@@ -103,6 +106,7 @@ const Messages = () => {
                         value={message.message}
                         image={message.user.image}
                         name={message.user.displayName}
+                        userUid={message.user.uid}
                         time={secondsToDate(message)}
                     />
                 ))}
@@ -128,14 +132,13 @@ const Messages = () => {
     );
 };
 
-const Message = ({ image, value, name, deleteMessage, time, id }) => {
+const Message = ({ image, value, name, deleteMessage, time, id, userUid }) => {
     return (
         <div
             className="mt-3 p-3 mx-2 d-flex align-items-center rounded fs-5 bg-dark text-light shadow"
             onContextMenu={async (e) => {
                 e.preventDefault();
-                await deleteMessage(id);
-                toast.success("Message deleted");
+                await deleteMessage(id, userUid);
             }}
         >
             <Toaster />
